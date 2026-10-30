@@ -411,6 +411,7 @@ class JoplinNote(SQLiteRow):
   conflict_original_id: str = ''
   master_key_id: str = ''
   user_data: str = ''
+  deleted_time: int = 0
 
   id: str = dataclasses.field(default_factory=lambda: uuid.uuid4().hex)
 

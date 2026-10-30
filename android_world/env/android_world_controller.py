@@ -165,12 +165,16 @@ class AndroidWorldController(base_wrapper.BaseWrapper):
       a11y_method: A11yMethod = A11yMethod.A11Y_FORWARDER_APP,
       install_a11y_forwarding_app: bool = True,
   ):
+    print(f'[DEBUG] AndroidWorldController.__init__ called, a11y_method={a11y_method}')
     self._original_env = env
     if a11y_method == A11yMethod.A11Y_FORWARDER_APP:
+      print('[DEBUG] Applying a11y forwarder app wrapper...')
       self._env = apply_a11y_forwarder_app_wrapper(
           env, install_a11y_forwarding_app
       )
+      print('[DEBUG] Calling env.reset()...')
       self._env.reset()  # Initializes required server services in a11y wrapper.
+      print('[DEBUG] env.reset() complete.')
     else:
       self._env = env
     self._a11y_method = a11y_method
@@ -311,6 +315,7 @@ def get_controller(
 ) -> AndroidWorldController:
   """Creates a controller by connecting to an existing Android environment."""
 
+  print(f'[DEBUG] Creating config with console_port={console_port}, grpc_port={grpc_port}')
   config = config_classes.AndroidEnvConfig(
       task=config_classes.FilesystemTaskConfig(
           path=_write_default_task_proto()
@@ -324,6 +329,8 @@ def get_controller(
           adb_controller=config_classes.AdbControllerConfig(adb_path=adb_path),
       ),
   )
+  print('[DEBUG] Loading AndroidEnv via loader...')
   android_env_instance = loader.load(config)
+  print('[DEBUG] AndroidEnv loaded, creating AndroidWorldController...')
   logging.info('Setting up AndroidWorldController.')
   return AndroidWorldController(android_env_instance)

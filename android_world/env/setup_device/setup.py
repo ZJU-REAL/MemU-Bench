@@ -38,18 +38,24 @@ _APPS = (
     apps.AndroidWorldApp,
     apps.AudioRecorder,
     apps.CameraApp,
+    apps.ChilemeiApp,
     apps.ChromeApp,
     apps.ClipperApp,
     apps.ClockApp,
     apps.ContactsApp,
+    apps.CoolReaderApp,
     apps.DialerApp,
     apps.ExpenseApp,
     apps.FilesApp,
+    apps.Game2048App,
+    apps.GauguinApp,
+    apps.JingdianApp,
     apps.JoplinApp,
     apps.MarkorApp,
     apps.MiniWobApp,
     apps.OpenTracksApp,
     apps.OsmAndApp,
+    apps.PdfReaderApp,
     apps.RecipeApp,
     apps.RetroMusicApp,
     apps.SettingsApp,
@@ -57,8 +63,11 @@ _APPS = (
     apps.SimpleDrawProApp,
     apps.SimpleGalleryProApp,
     apps.SimpleSMSMessengerApp,
+    apps.SolitaireApp,
     apps.TasksApp,
-    apps.VlcApp,
+    apps.TaodianApp,
+    apps.TuantuanApp,
+    # apps.VlcApp,
     # keep-sorted end
 )
 
@@ -128,6 +137,9 @@ def setup_app(app: Type[apps.AppSetup], env: interface.AsyncEnv) -> None:
         app.app_name,
         e,
     )
+  except Exception as e:
+    logging.error("Failed to setup app %s: %s", app.app_name, e)
+    raise
   app_snapshot.save_snapshot(app.app_name, env.controller)
 
 

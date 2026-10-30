@@ -38,16 +38,16 @@ APP_DATA = file_utils.convert_to_posix_path(os.path.dirname(__file__),
 
 def download_app_data(file_name: str) -> str:
   """Downloads file from a GCS bucket, if not cached, and installs it."""
-  cache_dir = file_utils.convert_to_posix_path(
-      file_utils.get_local_tmp_directory(), "android_world", "app_data"
+  apps_dir = file_utils.convert_to_posix_path(
+      os.path.dirname(__file__), "..", "..", "apps"
   )
   remote_url = (
       f"https://storage.googleapis.com/gresearch/android_world/{file_name}"
   )
-  full_path = file_utils.convert_to_posix_path(cache_dir, file_name)
-  os.makedirs(cache_dir, exist_ok=True)
+  full_path = file_utils.convert_to_posix_path(apps_dir, file_name)
+  os.makedirs(apps_dir, exist_ok=True)
   if not os.path.isfile(full_path):
-    logging.info("Downloading file_name %s to cache %s", file_name, cache_dir)
+    logging.info("Downloading file_name %s to %s", file_name, apps_dir)
     response = requests.get(remote_url)
     if response.status_code == 200:
       with open(full_path, "wb") as file:
@@ -58,7 +58,7 @@ def download_app_data(file_name: str) -> str:
           f" {response.status_code}"
       )
   else:
-    logging.info("File already %s exists in cache %s", file_name, cache_dir)
+    logging.info("File already %s exists in %s", file_name, apps_dir)
   return full_path
 
 
@@ -203,13 +203,27 @@ class ContactsApp(AppSetup):
     adb_utils.launch_app(cls.app_name, env.controller)
     try:
       controller = tools.AndroidToolController(env=env.controller)
-      time.sleep(2.0)
+      time.sleep(3.0)
       # Back up & organize your contacts with Google.
       controller.click_element("Skip")
       time.sleep(2.0)
+    finally:
+      adb_utils.close_app(cls.app_name, env.controller)
+
+    # Permission dialog appears on SECOND launch, so restart the app
+    adb_utils.launch_app(cls.app_name, env.controller)
+    try:
+      controller = tools.AndroidToolController(env=env.controller)
+      time.sleep(3.0)
       # Allow Contacts to send you notifications?
-      controller.click_element("Don't allow")
-      time.sleep(2.0)
+      for i in range(5):
+        try:
+          controller.click_element("Allow")
+          break
+        except ValueError:
+          if i < 4:
+            time.sleep(3.0)
+      time.sleep(5.0)  # Wait longer for permission state to persist to storage
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
 
@@ -608,34 +622,55 @@ class OpenTracksApp(AppSetup):
 
   @classmethod
   def setup(cls, env: interface.AsyncEnv) -> None:
-    adb_utils.launch_app(cls.app_name, env.controller)
-    adb_utils.close_app(cls.app_name, env.controller)
+    super().setup(env)
 
-    # Grant permissions for open tracks app.
-    open_tracks_package = adb_utils.extract_package_name(
-        adb_utils.get_adb_activity("open tracks")
+    # Click through onboarding screens during first time launch.
+    # Launch the introduction activity directly using am start
+    import subprocess
+    subprocess.run(
+      ["adb", "shell", "am", "start", "-n", "de.dennisguse.opentracks/.introduction.IntroductionActivity"],
+      capture_output=True,
+      timeout=10
     )
-    adb_utils.grant_permissions(
-        open_tracks_package,
-        "android.permission.ACCESS_COARSE_LOCATION",
-        env.controller,
-    )
-    adb_utils.grant_permissions(
-        open_tracks_package,
-        "android.permission.ACCESS_FINE_LOCATION",
-        env.controller,
-    )
-    adb_utils.grant_permissions(
-        open_tracks_package,
-        "android.permission.POST_NOTIFICATIONS",
-        env.controller,
-    )
-    time.sleep(2.0)
-    controller = tools.AndroidToolController(env=env.controller)
-    # Give permission for bluetooth, can't be done through adb.
-    controller.click_element("Allow")
-    adb_utils.launch_app("activity tracker", env.controller)
-    adb_utils.close_app("activity tracker", env.controller)
+    try:
+      controller = tools.AndroidToolController(env=env.controller)
+      time.sleep(3.0)
+
+      # Click next button (bottom right)
+      # Using adb tap since it's an image button
+      subprocess.run(["adb", "shell", "input", "tap", "943", "2017"], capture_output=True, timeout=5)
+      time.sleep(3.0)
+
+      # Click next button again
+      subprocess.run(["adb", "shell", "input", "tap", "943", "2017"], capture_output=True, timeout=5)
+      time.sleep(4.0)
+
+      # Now permission dialog appears - select "While using the app"
+      controller.click_element("While using the app")
+      time.sleep(3.0)
+
+      # Next permission dialog - select "Allow" (with retry)
+      for i in range(5):
+        try:
+          controller.click_element("Allow")
+          break
+        except ValueError:
+          if i < 4:
+            time.sleep(3.0)
+      time.sleep(3.0)
+
+      # Another permission dialog - select "Allow" again (with retry)
+      for i in range(5):
+        try:
+          controller.click_element("Allow")
+          break
+        except ValueError:
+          if i < 4:
+            time.sleep(3.0)
+      time.sleep(3.0)
+    finally:
+      # Use force-stop since the app might be in a different state
+      subprocess.run(["adb", "shell", "am", "force-stop", "de.dennisguse.opentracks"], capture_output=True, timeout=10)
 
 
 class VlcApp(AppSetup):
@@ -766,3 +801,137 @@ class RetroMusicApp(AppSetup):
     adb_utils.launch_app(cls.app_name, env.controller)
     time.sleep(2.0)
     adb_utils.close_app(cls.app_name, env.controller)
+
+
+class CalculatorApp(AppSetup):
+  """Class for setting up Calculator You app."""
+
+  apk_names = ("com.marktka.calculatorYou_33.apk",)
+  app_name = "calculator you"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    super().setup(env)
+    adb_utils.launch_app(cls.app_name, env.controller)
+    time.sleep(2.0)
+    adb_utils.close_app(cls.app_name, env.controller)
+
+
+
+class ChilemeiApp(AppSetup):
+  """Class for setting up chilemei app."""
+
+  apk_names = ("chilemei-0331.apk",)
+  app_name = "chilemei"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass
+
+
+class PdfReaderApp(AppSetup):
+  """Class for setting up PDF Reader app."""
+
+  apk_names = ("com.foobnix.pro.pdf.reader_7010.apk",)
+  app_name = "pdf reader"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    super().setup(env)
+
+    adb_utils.launch_app(cls.app_name, env.controller)
+    try:
+      controller = tools.AndroidToolController(env=env.controller)
+      time.sleep(2.0)
+      # Click Allow access to manage all files (system permission dialog)
+      controller.click_element("Allow access to manage all files")
+      time.sleep(2.0)
+    finally:
+      adb_utils.close_app(cls.app_name, env.controller)
+
+
+class CoolReaderApp(AppSetup):
+  """Class for setting up CoolReader app."""
+
+  apk_names = ("io.gitlab.coolreader_ng.lxreader.fdroid_80600.apk",)
+  app_name = "coolreader"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass
+
+
+class JingdianApp(AppSetup):
+  """Class for setting up jingdian app."""
+
+  apk_names = ("jingdian-0329.apk",)
+  app_name = "jingdian"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass
+
+
+class SolitaireApp(AppSetup):
+  """Class for setting up Solitaire app."""
+
+  apk_names = ("net.sourceforge.solitaire_cg_4010.apk",)
+  app_name = "solitaire"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass
+
+
+class Game2048App(AppSetup):
+  """Class for setting up 2048 game app."""
+
+  apk_names = ("org.andstatus.game2048_44.apk",)
+  app_name = "game 2048"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass
+
+
+
+class GauguinApp(AppSetup):
+  """Class for setting up Gauguin (drawing) app."""
+
+  apk_names = ("org.piepmeyer.gauguin_74.apk",)
+  app_name = "gauguin"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    super().setup(env)
+
+    adb_utils.launch_app(cls.app_name, env.controller)
+    try:
+      controller = tools.AndroidToolController(env=env.controller)
+      time.sleep(2.0)
+      controller.click_element("OK")
+      time.sleep(2.0)
+    finally:
+      adb_utils.close_app(cls.app_name, env.controller)
+
+
+class TaodianApp(AppSetup):
+  """Class for setting up taodian app."""
+
+  apk_names = ("taodian-0329.apk",)
+  app_name = "taodian"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass
+
+
+class TuantuanApp(AppSetup):
+  """Class for setting up tuantuan app."""
+
+  apk_names = ("tuantuan-0331.apk",)
+  app_name = "tuantuan"
+
+  @classmethod
+  def setup(cls, env: interface.AsyncEnv) -> None:
+    pass

@@ -127,16 +127,16 @@ _PATTERN_TO_ACTIVITY = immutabledict.immutabledict({
     'messages': (
         'com.google.android.apps.messaging/com.google.android.apps.messaging.ui.ConversationListActivity'
     ),
-    'simple sms messenger|simple sms': (
+    'simple sms messenger|simple sms|sms messenger': (
         'com.simplemobiletools.smsmessenger/com.simplemobiletools.smsmessenger.activities.MainActivity'
     ),
     'dialer|phone': (
         'com.google.android.dialer/com.google.android.dialer.extensions.GoogleDialtactsActivity'
     ),
-    'simple calendar pro|simple calendar': (
+    'simple calendar pro|simple calendar|calendar': (
         'com.simplemobiletools.calendar.pro/com.simplemobiletools.calendar.pro.activities.MainActivity'
     ),
-    'simple gallery pro|simple gallery': (
+    'simple gallery pro|simple gallery|gallery': (
         'com.simplemobiletools.gallery.pro/com.simplemobiletools.gallery.pro.activities.MainActivity'
     ),
     'miniwob': (
@@ -161,11 +161,23 @@ _PATTERN_TO_ACTIVITY = immutabledict.immutabledict({
     'open tracks sports tracker|activity tracker|open tracks|opentracks': (
         'de.dennisguse.opentracks/de.dennisguse.opentracks.TrackListActivity'
     ),
-    'joplin|joplin app': 'net.cozic.joplin/.MainActivity',
+    'joplin|joplin app|joplin notes': 'net.cozic.joplin/.MainActivity',
     'vlc|vlc app|vlc player': 'org.videolan.vlc/.gui.MainActivity',
     'retro music|retro|retro player': (
         'code.name.monkey.retromusic/.activities.MainActivity'
     ),
+    'calculator you|calculator': (
+        'com.marktka.calculatorYou/com.forz.calculator.MainActivity'
+    ),
+    'chilemei|吃了没': 'com.test.chilemei/com.test.chilemei.MainActivity',
+    'taodian|淘店': 'com.testmall.app/com.testmall.app.MainActivity',
+    'tuantuan|tuantuanwaimai|团团外卖': 'com.test.tuantuan/com.test.tuantuan.MainActivity',
+    'jingdian|京店': 'com.test.jingdian/com.test.jingdian.MainActivity',
+    'pdf reader|pdfreader|librera fd': 'com.foobnix.pro.pdf.reader/com.foobnix.ui2.MainTabs2',
+    'coolreader|cool reader|lxreader': 'io.gitlab.coolreader_ng.lxreader.fdroid/io.gitlab.coolreader_ng.project_s.ReaderActivity',
+    'solitaire|solitairecg': 'net.sourceforge.solitaire_cg/net.sourceforge.solitaire_cg.MainActivity',
+    'game 2048|game2048|2048': 'org.andstatus.game2048/.MyMainActivity',
+    'gauguin': 'org.piepmeyer.gauguin/.ui.main.MainActivity',
 })
 # pylint: enable=line-too-long
 

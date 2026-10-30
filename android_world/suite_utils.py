@@ -31,20 +31,20 @@ from android_world import episode_runner
 from android_world.agents import base_agent
 from android_world.env import adb_utils
 from android_world.env import interface
-from android_world.task_evals import task_eval
+from android_world.task_evals import fixed_task_eval
 from android_world.task_evals.miniwob import miniwob_base
 from fuzzywuzzy import process
 import numpy as np
 import pandas as pd
-
+import json
 # A fixed seed to use when use identical parameters but seed is not set.
-_FIXED_SEED = 123
+# _FIXED_SEED = 123
 _TASK_TEMPLATE_COLUMN = 'task_template'
 _TASK_PROMPT_COLUMN = 'task_prompt'
-TaskEvalType = TypeVar('TaskEvalType', bound=task_eval.TaskEval)
+TaskEvalType = TypeVar('TaskEvalType', bound=fixed_task_eval.TaskEval)
 
 
-class Suite(dict[str, list[task_eval.TaskEval]]):
+class Suite(dict[str, list[fixed_task_eval.TaskEval]]):
   """A suite of tasks.
 
   Each key is the task name as defined in registry.py and its value is a list
@@ -55,6 +55,17 @@ class Suite(dict[str, list[task_eval.TaskEval]]):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
     self._suite_family = None
+    self._use_full_goal = False
+
+  @property
+  def use_full_goal(self) -> bool:
+    """Getter for use_full_goal."""
+    return self._use_full_goal
+
+  @use_full_goal.setter
+  def use_full_goal(self, value: bool):
+    """Setter for use_full_goal."""
+    self._use_full_goal = value
 
   @property
   def suite_family(self) -> str:
@@ -75,41 +86,15 @@ def _log_and_print(msg: str, *args: object) -> None:
   print(formatted)
 
 
-def _instantiate_task(
-    task: Type[task_eval.TaskEval],
-    params: dict[str, Any] | None = None,
-    seed: int | None = None,
-    env: interface.AsyncEnv | None = None,
-) -> task_eval.TaskEval:
-  """Creates an instance of a task with params.
-
-  If params is not provided, it will use random params, controlled by a seed.
-
-  Args:
-    task: The task to instantiate.
-    params: Params to use.
-    seed: Seed for the random number generator.
-    env: The environment.
-
-  Returns:
-    An instance of a task.
-  """
-  task.set_device_time(env)
-  if params is None:
-    if seed is not None:
-      random.seed(seed)
-    params = task.generate_random_params()
-    params[constants.EpisodeConstants.SEED] = seed
-  return task(params)
 
 
 def create_suite(
-    task_registry: dict[str, Type[task_eval.TaskEval]],
-    n_task_combinations: int = 1,
-    seed: int | None = None,
+    task_registry: dict[str, Type[fixed_task_eval.TaskEval]],
+    # n_task_combinations: int = 1,
+    # seed: int | None = None,
     tasks: list[str] | None = None,
-    use_identical_params: bool = False,
-    env: interface.AsyncEnv | None = None
+    # use_identical_params: bool = False,
+    # env: interface.AsyncEnv | None = None
 ) -> Suite:
   """Creates task suite.
 
@@ -146,26 +131,12 @@ def create_suite(
     A mapping of task name to instances of the task.
   """
 
-  def _get_instance_seed(name: str, i: int) -> int:
-    unique_seed_str = f'{seed}_{name}_{i}'
-    return int(hashlib.sha256(unique_seed_str.encode()).hexdigest(), 16) % (
-        2**32
-    )
+
 
   suite = {}
   for name, task_type in task_registry.items():
-    current = []
-    for i in range(n_task_combinations):
-      if use_identical_params:
-        instance_seed = (
-            _get_instance_seed(name, 0) if seed is not None else _FIXED_SEED
-        )
-      elif seed is not None:
-        instance_seed = _get_instance_seed(name, i)
-      else:
-        instance_seed = None
-      current.append(_instantiate_task(task_type, seed=instance_seed, env=env))
-    suite[name] = current
+    suite[name] = [task_type()]
+  
   suite = _filter_tasks(suite, task_registry, tasks)
 
   # Sort suite alphabetically by task name.
@@ -184,10 +155,10 @@ def _suggest_keyword(
 
 
 def _filter_tasks(
-    suite: dict[str, list[task_eval.TaskEval]],
-    task_registry: dict[str, Type[task_eval.TaskEval]],
+    suite: dict[str, list[fixed_task_eval.TaskEval]],
+    task_registry: dict[str, Type[fixed_task_eval.TaskEval]],
     tasks: list[str] | None = None,
-) -> dict[str, list[task_eval.TaskEval]]:
+) -> dict[str, list[fixed_task_eval.TaskEval]]:
   """Filters a suite by specific tasks.
 
   Args:
@@ -222,9 +193,10 @@ def _filter_tasks(
 
 def _run_task(
     task: TaskEvalType,
-    run_episode: Callable[[TaskEvalType], episode_runner.EpisodeResult],
+    run_episode: Callable[[TaskEvalType, str], episode_runner.EpisodeResult],
     env: interface.AsyncEnv,
     demo_mode: bool,
+    use_full_goal: bool = False,
 ) -> dict[str, Any]:
   """Runs a task.
 
@@ -242,10 +214,36 @@ def _run_task(
   """
   start = time.time()
   try:
+    goal = task.full_goal if use_full_goal else task.goal
     task.initialize_task(env)
-    _log_and_print('Running task %s with goal "%s"', task.name, task.goal)
-    interaction_results = run_episode(task)
+    _log_and_print('Running task %s with goal "%s"', task.name, goal)
+    interaction_results = run_episode(task, goal)
     task_successful = task.is_successful(env)
+
+    # 更新 actions.json，添加任务是否成功的信息
+    actions_json_path = os.path.join(task.save_img_path, 'actions.json')
+    if os.path.exists(actions_json_path):
+      try:
+        with open(actions_json_path, 'r', encoding='utf-8') as f:
+          actions_data = json.load(f)
+        actions_data['is_successful'] = bool(task_successful)
+        actions_data['goal'] = goal
+        with open(actions_json_path, 'w', encoding='utf-8') as f:
+          json.dump(actions_data, f, ensure_ascii=False, indent=2)
+      except Exception as e:
+        logging.warning(f'Failed to update actions.json with is_successful: {e}')
+
+    # Clean up saved screenshots after task evaluation
+    # if os.path.exists(task.save_img_path):
+    #   for img_file in os.listdir(task.save_img_path):
+    #     if img_file.startswith('step_') and img_file.endswith('.jpg'):
+    #       os.remove(os.path.join(task.save_img_path, img_file))
+    #   # Delete the task's folder after cleaning up
+    #   try:
+    #     os.rmdir(task.save_img_path)
+    #   except OSError:
+    #     # Directory not empty or other error, ignore
+    #     pass
   except Exception as e:  # pylint: disable=broad-exception-caught
     _log_and_print('%s\nSKIPPING %s.', '~' * 80, task.name)
     logging.exception(
@@ -255,21 +253,21 @@ def _run_task(
     )
     traceback.print_exc()
     return _create_failed_result(
-        task.name, task.goal, traceback.format_exc(), time.time() - start
+        task.name, goal, traceback.format_exc(), time.time() - start
     )
   else:
     agent_successful = task_successful if interaction_results.done else 0.0
     _log_and_print(
         '%s; %s',
         'Task Successful ✅' if agent_successful > 0.5 else 'Task Failed ❌',
-        f' {task.goal}',
+        f' {goal}',
     )
 
     if demo_mode:
       _display_success_overlay(env.controller, agent_successful)
 
     result = {
-        constants.EpisodeConstants.GOAL: task.goal,
+        constants.EpisodeConstants.GOAL: goal,
         constants.EpisodeConstants.TASK_TEMPLATE: task.name,
         constants.EpisodeConstants.EPISODE_DATA: interaction_results.step_data,
         constants.EpisodeConstants.IS_SUCCESSFUL: agent_successful,
@@ -281,9 +279,10 @@ def _run_task(
         constants.EpisodeConstants.AUX_DATA: interaction_results.aux_data,
         constants.EpisodeConstants.SCREEN_CONFIG: _get_screen_config(task),
         constants.EpisodeConstants.EXCEPTION_INFO: None,
-        constants.EpisodeConstants.SEED: task.params[
-            constants.EpisodeConstants.SEED
-        ],
+        constants.EpisodeConstants.USER_HISTORY: interaction_results.user_history,
+        # constants.EpisodeConstants.SEED: task.params[
+        #     constants.EpisodeConstants.SEED
+        # ],
     }
     task.tear_down(env)
     return result
@@ -305,9 +304,9 @@ def _get_task_info(
   failed = collections.defaultdict(list)
   for episode in episodes:
     instance_name = (
-        episode[constants.EpisodeConstants.TASK_TEMPLATE]
-        + checkpointer_lib.INSTANCE_SEPARATOR
-        + str(episode[constants.EpisodeConstants.INSTANCE_ID])
+        episode[constants.EpisodeConstants.TASK_TEMPLATE] +
+        checkpointer_lib.INSTANCE_SEPARATOR +
+        str(episode[constants.EpisodeConstants.INSTANCE_ID])
     )
     if episode.get(constants.EpisodeConstants.EXCEPTION_INFO) is not None:
       failed[instance_name].append(episode)
@@ -318,7 +317,7 @@ def _get_task_info(
 
 def _run_task_suite(
     suite: Suite,
-    run_episode: Callable[[task_eval.TaskEval], episode_runner.EpisodeResult],
+    run_episode: Callable[[fixed_task_eval.TaskEval], episode_runner.EpisodeResult],
     env: interface.AsyncEnv,
     checkpointer: checkpointer_lib.Checkpointer = checkpointer_lib.NullCheckpointer(),
     demo_mode: bool = False,
@@ -391,7 +390,7 @@ def _run_task_suite(
         _log_and_print('Skipping already processed task %s', instance_name)
         continue
 
-      episode = _run_task(instance, run_episode, env, demo_mode=demo_mode)
+      episode = _run_task(instance, run_episode, env, demo_mode=demo_mode, use_full_goal=suite.use_full_goal)
       if (
           episode.get(constants.EpisodeConstants.EXCEPTION_INFO) is None
           and check_episode_fn is not None
@@ -417,6 +416,19 @@ def _run_task_suite(
         _update_scoreboard(correct, total, env.controller)
     print()
 
+  # 如果所有任务都被跳过，也需要输出最终结果表格
+  if len(episodes_metadata) > 0:
+    # 检查是否有任务被跳过（即没有新运行的任务）
+    has_new_tasks = any(
+        instance_name not in completed_tasks
+        for _, instances in suite.items()
+        for i, instance in enumerate(instances)
+        for instance_name in [instance.name + checkpointer_lib.INSTANCE_SEPARATOR + str(i)]
+    )
+    # 如果没有新运行的任务（都被跳过了），输出最终结果
+    if not has_new_tasks:
+      process_episodes_fn(episodes_metadata, print_summary=True)
+
   return full_episode_data if return_full_episode_data else episodes_metadata
 
 
@@ -428,6 +440,8 @@ def run(
     return_full_episode_data: bool = False,
     process_episodes_fn=None,
     check_episode_fn: Callable[[dict[str, Any]], bool] | None = None,
+    path: str | None = None,
+    ask: bool = False,
 ) -> list[dict[str, Any]]:
   """Create suite and runs eval suite.
 
@@ -445,16 +459,22 @@ def run(
     process_episodes_fn: The function to process episode data. Usually to
       compute metrics. Deafaults to process_episodes from this file.
     check_episode_fn: The function to check episode data.
+    path: Path to the pre-generated user_history JSON file. If provided,
+      user_history for the matching goal will be looked up; otherwise empty.
+    ask: Whether to enable ask mode in agent.step().
 
   Returns:
     Step-by-step data from each episode.
   """
 
-  def run_episode(task: task_eval.TaskEval) -> episode_runner.EpisodeResult:
+  def run_episode(task: fixed_task_eval.TaskEval, goal: str | None = None) -> episode_runner.EpisodeResult:
+    if goal is None:
+      goal = task.full_goal if suite.use_full_goal else task.goal
     if demo_mode:
-      _display_goal(agent.env, task)
+      _display_goal(agent.env, task, goal)
+    information = getattr(task, 'information', '')
     return episode_runner.run_episode(
-        goal=task.goal,
+        goal=goal,
         agent=agent,
         max_n_steps=_allocate_step_budget(task.complexity),
         start_on_home_screen=task.start_on_home_screen,
@@ -463,6 +483,10 @@ def run(
             if task.name.lower().startswith('miniwob')
             else None
         ),
+        path=path,
+        information=information,
+        ask=ask,
+        save_img_path=task.save_img_path,
     )
 
   if demo_mode:
@@ -513,22 +537,25 @@ def _display_message(
   )
 
 
-def _display_goal(env: interface.AsyncEnv, task: task_eval.TaskEval) -> None:
+def _display_goal(env: interface.AsyncEnv, task: fixed_task_eval.TaskEval, goal: str | None = None) -> None:
   """Displays the goal on the screen using Android World.
 
   Args:
     env: The environment.
     task: The current task.
+    goal: The goal to display. If None, uses task.goal or task.full_goal based on suite settings.
   """
+  if goal is None:
+    goal = task.full_goal if hasattr(task, 'full_goal') and env.use_full_goal else task.goal
   adb_utils.launch_app('android world', env.controller)
   time.sleep(1.0)
-  _display_message(task.goal, task.name, env.controller)
+  _display_message(goal, task.name, env.controller)
   time.sleep(6.0)
   adb_utils.press_home_button(env.controller)
   time.sleep(1.0)
 
 
-def _get_screen_config(task: task_eval.TaskEval) -> dict[str, Any]:
+def _get_screen_config(task: fixed_task_eval.TaskEval) -> dict[str, Any]:
   return {
       'width': task.width if hasattr(task, 'width') else 1080,
       'height': task.height if hasattr(task, 'height') else 2400,
@@ -555,6 +582,7 @@ def _create_failed_result(
       constants.EpisodeConstants.EPISODE_LENGTH: np.nan,
       constants.EpisodeConstants.EXCEPTION_INFO: exception,
       constants.EpisodeConstants.AUX_DATA: None,
+      constants.EpisodeConstants.USER_HISTORY: '',
   }
 
 
@@ -678,6 +706,7 @@ def process_episodes(
       )
   })
 
+  # 按 task_template 分组
   result_df = df.groupby(
       constants.EpisodeConstants.TASK_TEMPLATE, dropna=True
   ).agg({
@@ -700,11 +729,11 @@ def process_episodes(
       lambda x: float('{:.1f}'.format(x))
   )
 
-  # Extract metadata and merge with the results table.
-  metadata_df = _extract_task_metadata()
-  tagged_result_df = result_df.merge(
-      metadata_df, on=[_TASK_TEMPLATE_COLUMN], how='left'
-  )
+  # # Extract metadata and merge with the results table.
+  # metadata_df = _extract_task_metadata()
+  # tagged_result_df = result_df.merge(
+  #     metadata_df, on=[_TASK_TEMPLATE_COLUMN], how='left'
+  # )
 
   if print_summary:
     avg = result_df.mean(axis=0)
@@ -719,9 +748,9 @@ def process_episodes(
     pd.set_option('display.width', 1000)
     _log_and_print('\n\n%s', result)  # Use lazy % formatting
 
-    # Add a chart that shows mean success rate by tag and difficulty.
-    tags_df = _print_results_by_tag(tagged_result_df)
-    pd.set_option('display.precision', 2)
-    _log_and_print('\n\n%s', tags_df)
+    # # Add a chart that shows mean success rate by tag and difficulty.
+    # tags_df = _print_results_by_tag(tagged_result_df)
+    # pd.set_option('display.precision', 2)
+    # _log_and_print('\n\n%s', tags_df)
 
-  return tagged_result_df
+  return result_df

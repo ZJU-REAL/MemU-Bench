@@ -1,0 +1,202 @@
+{
+    "user0": {
+        "long": [
+            "Change the meeting time in simple calendar app.",
+            "Send a message to my friend via simple sms messenger app, telling him I have something to do and can't play with him next weekend.",
+            "I forgot to text a friend to ask if she's coming out to hang out today, please send a text message to ask her, and tell her the location via simple sms messenger app.",
+            "Set an alarm 2 hours before my flight in clock app.",
+            "Buy a gift for Xiao Wang on taodian app, size S. Fill in Xiao Wang's contact info. Payment password is 123456.",
+            "Buy the T-shirt I looked at many times today on taodian app. Payment password is 123456."
+        ],
+        "medium": [
+            "Mark the recently finished to-do item as completed for me in tasks app.",
+            "I saw a picture earlier that contains information about an event.Please help me create a schedule in simple calendar app, including the title, location, start and end time. The event is supposed to last for one hour.",
+            "Add the business card I just viewed to contacts in contacts app, and save the name, phone number and email address.",
+            "I just saw a business card. Please call the person on it using phone app.",
+            "I calculated my expenses, please record it in the pro expense app, name it outing, and set the category to social."
+        ],
+        "short": [
+            "I plan to have a picnic at the location I just marked on the map from 2 p.m. to 6 p.m. the day after tomorrow. Please help me add this schedule to the simple calendar app.",
+            "Please delete the alarm I just set.",
+            "Save the first call this morning as a contact named Courier in contacts app."
+        ]
+    },
+    "user10": {
+        "medium": [
+            "Order a S 码 经典白色 T 恤 on jingdian app, with contact name William Smith, phone number 12344445566, and fill in his new home address. Payment password is 123456",
+            "Add a todo in tasks app for tomorrow, about picking up gifts from several friends.",
+            "Add the professor's alternate phone number to contacts. Contact Name is Professor 2.",
+            "Favorite the receipt image that I viewed many times in simple gallery pro app."
+        ],
+        "short": [
+            "Send a text message to Jennifer telling her which games I've been playing recently via simple sms messenger app.",
+            "Call the repairman my friend told me about via phone app.",
+            "Create a note in joplin app with title 'Reading' and content about the papers I read today."
+        ]
+    },
+    "user11": {
+        "long": [
+            "The cola I ordered before is not enough, please order two more boxes of that cola on jingdian app.",
+            "I want to make honey cake. Please add a todo in tasks app, the title is preheat oven, I don't remember the temperature.",
+            "Please record a bill in pro expense, name it Alipay consumption, the total amount is the total spending using Alipay today.",
+            "Send a text message to Sarah Jones via simple sms messenger app, recommending the paper I read the most today.",
+            "I completed some tasks today, please mark them as completed in tasks app.",
+            "A friend paid me back, please delete the lending record in pro expense app."
+        ],
+        "medium": [
+            "Please record my online shopping expense in pro expense app, name it shopping, category is Others.",
+            "A friend transferred money to me. Please record it in pro expense app, name it transfer.",
+            "Modify the group meeting time in simple calendar app.",
+            "Create a todo in tasks app, reminding me to call the number I answered this morning at 8 PM."
+        ],
+        "short": [
+            "Delete the paper I read today, it's too deep for me, in the files app.",
+            "Send a text message to Sarah Jones via simple sms messenger app, telling her I bought a new phone and the price of the new phone."
+        ]
+    },
+    "user1": {
+        "long": [
+            "I told a friend about my expenses, please send the same text message to Charles Martinez via simple sms messenger app.",
+            "Send a text message to William Brown via simple sms messenger app about which song I like the most.",
+            "Help me create a note in joplin app with title '2048', and write about how many points I scored today.",
+            "Call the new meeting participant via phone app.",
+            "Send a text message to Mary Johnson via simple sms messenger app, saying I completed my trail walking goal and how many miles I walked",
+            "Play my favorite song in retro music app."
+        ],
+        "medium": [
+            "Please open the recipe I want to cook today in broccoli app.",
+            "Delete the recipe I don't like from broccoli app.",
+            "In simple gallery app, delete the receipt that lists 5 items.",
+            "Ask Mary Brown via simple sms messenger app if she has the sauce I want to use at her place."
+        ],
+        "short": [
+            "Share the recipe I opened and viewed earlier with Barbara Jones via simple sms messenger app.",
+            "Send the verification code to Jennifer Smith via simple sms messenger app.",
+            "I'm cooking according to the recipe I opened earlier, but I forgot how long it takes. Please set an alarm for that many minutes from now in clock app."
+        ]
+    },
+    "user2": {
+        "long": [
+            "Create an interview schedule in simple calendar app that lasts for 1 hour.",
+            "Update the phone number for Jennifer Smith in contacts app.",
+            "Favorite the recipe I created earlier in broccoli app."
+        ],
+        "medium": [
+            "Record the total amount from the receipt I calculated in the pro expense app, name it technology, and set the category to Others.",
+            "Please add the two recommended songs to a playlist in retro music app.",
+            "I want to eat the same noodles as in the picture I saw earlier, please order one from 好味道中餐馆 on chilemei app.",
+            "Please buy some fruit on chilemei app. Buy as many portions as the number of people attending the meeting."
+        ],
+        "short": [
+            "Please add the team meeting to the simple calendar app.",
+            "Set an alarm 2 hours earlier than the flight schedule in clock app.",
+            "The friend texted me asking to go out and play, please record it into the joplin app with title 'Going Out' and the SMS content."
+        ]
+    },
+    "user3": {
+        "long": [
+            "Set an alarm for 5 minutes before Barbara Jones's food delivery arrives in clock app.",
+            "Record the recipe someone sent me in broccoli app.",
+            "Record my clothing purchase expense in pro expense app.",
+            "Create a todo in tasks app for picking up my package. Write down the pickup code in Notes."
+        ],
+        "medium": [
+            "Delete the screenshot I accidentally saved while playing a game earlier from simple gallery app.",
+            "Save my phone number as a contact in contacts app. First name is 'my phone'.",
+            "I created a to-do for an event earlier, please set an alarm one hour before it for me in clock app.",
+            "Modify the outing event location in simple calendar app. If it doesn't exist, please create it as an all-day event."
+        ],
+        "short": [
+            "Delete the receipt I was looking at earlier from the simple gallery app.",
+            "Delete the screenshot I accidentally took while reading a novel earlier from the simple gallery app.",
+            "Send the verification codeto the person who just called me via simple sms messenger app."
+        ]
+    },
+    "user4": {
+        "long": [
+            "Order 宫保鸡丁 from 好味道中餐馆 on tuantuanwaimai app, deliver to my company, contact name is Me, phone number is 13312345678.",
+            "Order some portions of 麻辣鸡块 from 大大炸鸡 on chilemei app, deliver to my company, contact name is 张三, phone number is 13812345678. The number of portions should be the number of people who attended the meeting on May 8th divided by 2.",
+            "Create a note in joplin app about the black classic t-shirt I viewed earlier, include the style and price.",
+            "Create a note in joplin app about how many pages I've read in the book 三体.",
+            "Delete the dress picture I viewed multiple times earlier from simple gallery app.",
+            "Record my travel expense in pro expense app, name it 'Travel', category is 'social', the amount is around 1000 yuan which I calculated earlier using the calculator."
+        ],
+        "medium": [
+            "Please order a 经典肉酱面 from 意式手工面坊 on chilemei app for Barbara Jones, phone number 13344556677, deliver to her place.",
+            "I plan to run a total of 15 miles for trail run this month, ending on May 21. I've already run several miles so far. Please help me write a todo with the remaining miles to run in tasks app.",
+            "In taodian app, help me buy the same black t-shirt I saw earlier, size S. The payment password is: 123456.",
+            "The second song I played this morning was really nice, please play it for me in retro music app."
+        ],
+        "short": [
+            "Please send my friend a message via simple sms messenger app saying Happy Birthday.",
+            "Send the phone number I dialed this morning to Jennifer Smith via simple sms messenger app.",
+            "I was busy and missed a call. Please call it back in phone app."
+        ]
+    },
+    "user5": {
+        "long": [
+            "Send the new driver's phone number to Sarah Jones via simple sms messenger app.",
+            "Delete the todo for paying Mary Jones and create a new one with updated amount in tasks app.",
+            "Create a todo in tasks app named 'Guitar Practice', the content is about practicing the guitar performance of the song we agreed on.",
+            "Buy the T-shirt I mentioned earlier in taodian app. The payment password is 123456."
+        ],
+        "medium": [
+            "I marked two places on the map. Send a text message to William Smith asking which of these two places we should go to this weekend via simple sms messenger app.",
+            "Please record my previous expenses on buying cola online in pro expense, name it cola, and set the category to food.",
+            "Create a todo in tasks app named 'Debt Collection' with due date 2026-05-15, reminding the person who owes me money to pay back.",
+            "Rename the last receipt I viewed to 'technology' in simple gallery app."
+        ],
+        "short": [
+            "Please call the person who owes me money in phone app.",
+            "Please record my salary in the pro expense app.",
+            "Please play the song my friend recommended for me in retro music app.",
+            "I calculated my total expenses. Please tell Mary Brown how much I spent via simple sms messenger app."
+        ]
+    },
+    "user6": {
+        "medium": [
+            "Order the burger I recorded before on tuantuanwaimai app and add the remarks.",
+            "Create a todo in tasks app to send birthday wishes to Jennifer Smith.",
+            "Share my recorded shopping list with Mary Brown via simple sms messenger app.",
+            "Send a text message to my friend, telling her how much she owes me and ask when she will pay me back via simple sms messenger app."
+        ],
+        "short": [
+            "Record yesterday's dinner expense in pro expense app, name it 'dinner', category is 'social'.",
+            "Create a todo for the meeting with Sarah Jones in tasks app.",
+            "I browsed a city before, please create a calendar event on May 30 to go there in simple calendar app."
+        ]
+    },
+    "user7": {
+        "long": [
+            "Buy one 女士蕾丝花卉鸡尾酒连衣裙 on taodian app for Zhao Si. Payment password is 123456.",
+            "Share the quote I recorded with Barbara Jones via simple sms messenger app, tell her I think it's a great quote.",
+            "Open the card game I've been playing a lot today.",
+            "The 'Zhou nian qing' celebration is coming up, order a few boxes of canned sugar-free cola on jingdian app.",
+            "Add a todo in tasks app for buying ingredients, with notes about the ingredients I need for Braised spare ribs. Due date is today.",
+            "Send a text message to my friend via simple sms messenger app, telling her I ordered food delivery for her and asking if she has received it."
+        ]
+    },
+    "user8": {
+        "medium": [
+            "I paid this month's tuition, create a todo in tasks app for tuition payment with the same amount as this payment, and due date the same day next month.",
+            "Open the recipe for the dish I'm making tonight in broccoli app.",
+            "Record the recipe that a friend recommended in broccoli app.",
+            "I haven't done a neighborhood walk in a while, create a calendar event for it in simple calendar app, name it 'neighborhood walk X mile', the mile is twice my last neighborhood walk, date is May 20. Time: 7 p.m. to 10 p.m."
+        ],
+        "short": [
+            "Please send the delivery person a text message via simple sms messenger app telling him to leave the food at the door.",
+            "Add the plumber to contacts in contacts app.",
+            "I don't really like the recipe I viewd, please delete it in broccoli app."
+        ]
+    },
+    "user9": {
+        "long": [
+            "Add next Wednesday's event to simple calendar app.",
+            "Change the calendar session time in simple calendar app, and then update the alarm time accordingly.",
+            "Delete the recipe I opened before playing solitairecg in broccoli app.",
+            "A friend recommended a new way to make a recipe, help me modify the Directions of that recipe in broccoli app.",
+            "I calculated the reimbursement amount, help me create a note in joplin app with the reimbursement details.",
+            "Buy the mouse that my friend recommended to me on taodian app. Payment password is 123456"
+        ]
+    }
+}

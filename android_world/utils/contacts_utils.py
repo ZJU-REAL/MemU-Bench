@@ -75,6 +75,8 @@ class Contact:
   """Basic contact information."""
   name: str
   number: str
+  company: str = ""
+  email: str = ""
 
 
 def list_contacts(
@@ -88,6 +90,55 @@ def list_contacts(
   Returns:
     A list of all contact names and numbers present on the device.
   """
+  # 查询联系人数据（包括 name, phone, email, company）
+  intent_command = (
+      "content query --uri content://com.android.contacts/data --projection"
+      " contact_id:mimetype:data1"
+  )
+  adb_command = ["shell", intent_command]
+
+  contacts_data = {}
+
+  try:
+    response = adb_utils.issue_generic_request(adb_command, env)
+    output = response.generic.output.decode("utf-8")
+
+    # 解析联系人数据
+    for line in output.strip().split("\n"):
+      if line.startswith("Row:"):
+        # 解析 contact_id, mimetype, data1
+        match = re.search(r"contact_id=(\d+), mimetype=(\S+), data1=(.*)", line)
+        if match:
+          contact_id = match.group(1)
+          mimetype = match.group(2)
+          data = match.group(3).strip()
+
+          if contact_id not in contacts_data:
+            contacts_data[contact_id] = {"name": "", "number": "", "company": "", "email": ""}
+
+          # 根据 mimetype 判断数据类型
+          if mimetype == "vnd.android.cursor.item/name":
+            contacts_data[contact_id]["name"] = data
+          elif mimetype == "vnd.android.cursor.item/phone_v2":
+            contacts_data[contact_id]["number"] = clean_phone_number(data)
+          elif mimetype == "vnd.android.cursor.item/organization":
+            contacts_data[contact_id]["company"] = data
+          elif mimetype == "vnd.android.cursor.item/email_v2":
+            contacts_data[contact_id]["email"] = data
+
+  except Exception as e:
+    print(f"[DEBUG] Error querying contacts data: {e}")
+    # 回退到简单查询
+    return _list_contacts_simple(env)
+
+  # 转换为 Contact 对象列表
+  return [Contact(**data) for data in contacts_data.values() if data["name"] or data["number"]]
+
+
+def _list_contacts_simple(
+    env: android_world_controller.AndroidWorldController,
+) -> list[Contact]:
+  """简单方式列出联系人（仅 name 和 number）。"""
   intent_command = (
       "content query --uri content://contacts/phones/ --projection"
       " display_name:number"

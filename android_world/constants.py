@@ -51,3 +51,4 @@ class EpisodeConstants:
   FINISH_DTIME = 'finish_dtime'
   SEED = 'seed'
   AUX_DATA = 'aux_data'
+  USER_HISTORY = 'user_history'

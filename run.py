@@ -43,7 +43,7 @@ logging.set_verbosity(logging.WARNING)
 
 os.environ['GRPC_VERBOSITY'] = 'ERROR'  # Only show errors
 os.environ['GRPC_TRACE'] = 'none'  # Disable tracing
-
+os.environ["API_KEY"] = 'sk-ss-v1-54234cbd9c39e99148da9ea59f43dca96bf067ef2d519474a9905a5ca9499229'
 
 def _find_adb_directory() -> str:
   """Returns the directory where adb is located."""
@@ -93,6 +93,8 @@ _SUITE_FAMILY = flags.DEFINE_enum(
         registry.TaskRegistry.MINIWOB_FAMILY,
         registry.TaskRegistry.ANDROID_FAMILY,
         registry.TaskRegistry.INFORMATION_RETRIEVAL_FAMILY,
+        # Debug suite for testing.
+        registry.TaskRegistry.DEBUG_SUITE,
     ],
     'Suite family to run. See registry.py for more information.',
 )
@@ -178,6 +180,8 @@ def _get_agent(
   # SeeAct.
   elif _AGENT_NAME.value == 'seeact':
     agent = seeact.SeeAct(env)
+  elif _AGENT_NAME.value == 'claude':
+    agent = t3a.T3A(env, infer.GeneralWrapper('anthropic/claude-sonnet-4.6'))
 
   if not agent:
     raise ValueError(f'Unknown agent: {_AGENT_NAME.value}')

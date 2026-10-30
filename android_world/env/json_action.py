@@ -22,6 +22,7 @@ from typing import Any, Optional
 _JSON_SEPARATORS = (',', ':')
 
 ANSWER = 'answer'
+ASK = 'ask'
 CLICK = 'click'
 DOUBLE_TAP = 'double_tap'
 INPUT_TEXT = 'input_text'
@@ -50,6 +51,7 @@ _ACTION_TYPES = (
     WAIT,
     LONG_PRESS,
     ANSWER,
+    ASK,
     UNKNOWN,
 )
 
@@ -107,6 +109,7 @@ class JSONAction:
   index: Optional[str | int] = None
   x: Optional[int] = None
   y: Optional[int] = None
+  element: Optional[str] = None
   text: Optional[str] = None
   direction: Optional[str] = None
   goal_status: Optional[str] = None
@@ -119,6 +122,10 @@ class JSONAction:
       raise ValueError(f'Invalid action type: {self.action_type}')
     if self.index is not None:
       self.index = int(self.index)
+      if self.x is not None or self.y is not None:
+        raise ValueError('Either an index or a <x, y> should be provided.')
+    if self.element is not None:
+      self.element = str(self.element)
       if self.x is not None or self.y is not None:
         raise ValueError('Either an index or a <x, y> should be provided.')
     if self.direction and self.direction not in _SCROLL_DIRECTIONS:

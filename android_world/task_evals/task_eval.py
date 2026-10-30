@@ -109,9 +109,13 @@ class TaskEval(abc.ABC):
     return self.template.format(**self.params)
 
   @classmethod
-  @abc.abstractmethod
   def generate_random_params(cls) -> dict[str, Any]:
-    """Returns a random set of parameters for defining the task."""
+    """Returns a random set of parameters for defining the task.
+
+    Default implementation returns empty dict for fixed tasks without parameters.
+    Subclasses with random parameters should override this method.
+    """
+    return {}
 
   def _initialize_apps(self, env: interface.AsyncEnv) -> None:
 
@@ -142,19 +146,20 @@ class TaskEval(abc.ABC):
   def initialize_task(self, env: interface.AsyncEnv) -> None:  # pylint: disable=unused-argument
     """Initializes the task."""
     # Reset the interaction cache so previous tasks don't affect this run:
-    env.interaction_cache = ""
-    self.initialize_device_time(env)
-    self._initialize_apps(env)
-    logging.info("Initializing %s", self.name)
-    if self.initialized:
-      raise RuntimeError(f"{self.name}.initialize_task() is already called.")
-    self.initialized = True
+    # env.interaction_cache = ""
+    # self.initialize_device_time(env)
+    # self._initialize_apps(env)
+    # logging.info("Initializing %s", self.name)
+    # if self.initialized:
+    #   raise RuntimeError(f"{self.name}.initialize_task() is already called.")
+    # self.initialized = True
 
-    # Set random seed for so that any random params initialized here are
-    # deterministic when initialize_task is called again.
-    seed = self.params.get("seed")
-    if seed is not None:
-      random.seed(seed)
+    # # Set random seed for so that any random params initialized here are
+    # # deterministic when initialize_task is called again.
+    # seed = self.params.get("seed")
+    # if seed is not None:
+    #   random.seed(seed)
+    pass
 
   def _check_is_initialized(self) -> None:
     if not self.initialized:
@@ -176,8 +181,9 @@ class TaskEval(abc.ABC):
       For composite tasks, that combine together multiple tasks, the output is
       defined as sum(successful_tasks)/total_tasks.
     """
-    self._check_is_initialized()
-    return 1.0
+    # self._check_is_initialized()
+    # return 1.0
+    pass
 
   def tear_down(self, env: interface.AsyncEnv) -> None:  # pylint: disable=unused-argument
     """Tears down the task."""

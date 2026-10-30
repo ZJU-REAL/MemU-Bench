@@ -37,7 +37,7 @@ logging.set_verbosity(logging.WARNING)
 
 os.environ['GRPC_VERBOSITY'] = 'ERROR'  # Only show errors
 os.environ['GRPC_TRACE'] = 'none'  # Disable tracing
-
+os.environ["API_KEY"] = 'sk-ss-v1-54234cbd9c39e99148da9ea59f43dca96bf067ef2d519474a9905a5ca9499229'
 
 def _find_adb_directory() -> str:
   """Returns the directory where adb is located."""
@@ -85,14 +85,18 @@ _TASK = flags.DEFINE_string(
 
 def _main() -> None:
   """Runs a single task."""
+  print('[DEBUG] Loading and setting up environment...')
   env = env_launcher.load_and_setup_env(
       console_port=_DEVICE_CONSOLE_PORT.value,
       emulator_setup=_EMULATOR_SETUP.value,
       adb_path=_ADB_PATH.value,
   )
+  print('[DEBUG] Environment loaded, resetting...')
   env.reset(go_home=True)
+  print('[DEBUG] Environment reset complete.')
   task_registry = registry.TaskRegistry()
   aw_registry = task_registry.get_registry(task_registry.ANDROID_WORLD_FAMILY)
+  print(f'[DEBUG] Registry loaded, found {len(aw_registry)} tasks')
   if _TASK.value:
     if _TASK.value not in aw_registry:
       raise ValueError('Task {} not found in registry.'.format(_TASK.value))
@@ -101,10 +105,15 @@ def _main() -> None:
     task_type: Type[task_eval.TaskEval] = random.choice(
         list(aw_registry.values())
     )
+  print(f'[DEBUG] Task type: {task_type.__name__}')
   params = task_type.generate_random_params()
+  print(f'[DEBUG] Generated params: {params}')
   task = task_type(params)
+  print('[DEBUG] Initializing task...')
   task.initialize_task(env)
-  agent = t3a.T3A(env, infer.Gpt4Wrapper('gpt-4-turbo-2024-04-09'))
+  print('[DEBUG] Task initialized, creating agent...')
+  agent = t3a.T3A(env, infer.ClaudeWrapper('anthropic/claude-sonnet-4.6'))
+  print('[DEBUG] Agent created.')
 
   print('Goal: ' + str(task.goal))
   is_done = False

@@ -101,175 +101,29 @@ SAFETY_SETTINGS_BLOCK_NONE = {
 }
 
 
-class GeminiGcpWrapper(LlmWrapper, MultimodalLlmWrapper):
-  """Gemini GCP interface."""
-
-  def __init__(
-      self,
-      model_name: str | None = None,
-      max_retry: int = 3,
-      temperature: float = 0.0,
-      top_p: float = 0.95,
-      enable_safety_checks: bool = True,
-  ):
-    if 'GCP_API_KEY' not in os.environ:
-      raise RuntimeError('GCP API key not set.')
-    genai.configure(api_key=os.environ['GCP_API_KEY'])
-    self.llm = genai.GenerativeModel(
-        model_name,
-        safety_settings=None
-        if enable_safety_checks
-        else SAFETY_SETTINGS_BLOCK_NONE,
-        generation_config=generation_types.GenerationConfig(
-            temperature=temperature, top_p=top_p
-        ),
-    )
-    if max_retry <= 0:
-      max_retry = 3
-      print('Max_retry must be positive. Reset it to 3')
-    self.max_retry = min(max_retry, 5)
-
-  def predict(
-      self,
-      text_prompt: str,
-      enable_safety_checks: bool = True,
-      generation_config: generation_types.GenerationConfigType | None = None,
-  ) -> tuple[str, Optional[bool], Any]:
-    return self.predict_mm(
-        text_prompt, [], enable_safety_checks, generation_config
-    )
-
-  def is_safe(self, raw_response):
-    try:
-      return (
-          raw_response.candidates[0].finish_reason
-          != answer_types.FinishReason.SAFETY
-      )
-    except Exception:  # pylint: disable=broad-exception-caught
-      #  Assume safe if the response is None or doesn't have candidates.
-      return True
-
-  def predict_mm(
-      self,
-      text_prompt: str,
-      images: list[np.ndarray],
-      enable_safety_checks: bool = True,
-      generation_config: generation_types.GenerationConfigType | None = None,
-  ) -> tuple[str, Optional[bool], Any]:
-    counter = self.max_retry
-    retry_delay = 1.0
-    output = None
-    while counter > 0:
-      try:
-        output = self.llm.generate_content(
-            [text_prompt] + [Image.fromarray(image) for image in images],
-            safety_settings=None
-            if enable_safety_checks
-            else SAFETY_SETTINGS_BLOCK_NONE,
-            generation_config=generation_config,
-        )
-        return output.text, True, output
-      except Exception as e:  # pylint: disable=broad-exception-caught
-        counter -= 1
-        print('Error calling LLM, will retry in {retry_delay} seconds')
-        print(e)
-        if counter > 0:
-          # Expo backoff
-          time.sleep(retry_delay)
-          retry_delay *= 2
-
-    if (output is not None) and (not self.is_safe(output)):
-      return ERROR_CALLING_LLM, False, output
-    return ERROR_CALLING_LLM, None, None
-
-  def generate(
-      self,
-      contents: (
-          content_types.ContentsType | list[str | np.ndarray | Image.Image]
-      ),
-      safety_settings: safety_types.SafetySettingOptions | None = None,
-      generation_config: generation_types.GenerationConfigType | None = None,
-  ) -> tuple[str, Any]:
-    """Exposes the generate_content API.
-
-    Args:
-      contents: The input to the LLM.
-      safety_settings: Safety settings.
-      generation_config: Generation config.
-
-    Returns:
-      The output text and the raw response.
-    Raises:
-      RuntimeError:
-    """
-    counter = self.max_retry
-    retry_delay = 1.0
-    response = None
-    if isinstance(contents, list):
-      contents = self.convert_content(contents)
-    while counter > 0:
-      try:
-        response = self.llm.generate_content(
-            contents=contents,
-            safety_settings=safety_settings,
-            generation_config=generation_config,
-        )
-        return response.text, response
-      except Exception as e:  # pylint: disable=broad-exception-caught
-        counter -= 1
-        print('Error calling LLM, will retry in {retry_delay} seconds')
-        print(e)
-        if counter > 0:
-          # Expo backoff
-          time.sleep(retry_delay)
-          retry_delay *= 2
-    raise RuntimeError(f'Error calling LLM. {response}.')
-
-  def convert_content(
-      self,
-      contents: list[str | np.ndarray | Image.Image],
-  ) -> content_types.ContentsType:
-    """Converts a list of contents to a ContentsType."""
-    converted = []
-    for item in contents:
-      if isinstance(item, str):
-        converted.append(item)
-      elif isinstance(item, np.ndarray):
-        converted.append(Image.fromarray(item))
-      elif isinstance(item, Image.Image):
-        converted.append(item)
-    return converted
 
 
-class Gpt4Wrapper(LlmWrapper, MultimodalLlmWrapper):
-  """OpenAI GPT4 wrapper.
-
-  Attributes:
-    openai_api_key: The class gets the OpenAI api key either explicitly, or
-      through env variable in which case just leave this empty.
-    max_retry: Max number of retries when some error happens.
-    temperature: The temperature parameter in LLM to control result stability.
-    model: GPT model to use based on if it is multimodal.
-  """
-
+class GeneralWrapper(LlmWrapper, MultimodalLlmWrapper):
   RETRY_WAITING_SECONDS = 20
 
   def __init__(
       self,
       model_name: str,
       max_retry: int = 3,
-      temperature: float = 0.0,
+      generation_config: dict = {},
   ):
-    if 'OPENAI_API_KEY' not in os.environ:
+    if 'API_KEY' not in os.environ:
       raise RuntimeError('OpenAI API key not set.')
-    self.openai_api_key = os.environ['OPENAI_API_KEY']
+    self.api_key = os.environ['API_KEY']
+    if 'BASE_URL' not in os.environ:
+      raise RuntimeError('BASE URL not set.')
+    self.base_url = os.environ['BASE_URL']
     if max_retry <= 0:
       max_retry = 3
       print('Max_retry must be positive. Reset it to 3')
     self.max_retry = min(max_retry, 5)
-    self.temperature = temperature
     self.model = model_name
-
+    self.generation_config = generation_config
   @classmethod
   def encode_image(cls, image: np.ndarray) -> str:
     return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
@@ -277,33 +131,54 @@ class Gpt4Wrapper(LlmWrapper, MultimodalLlmWrapper):
   def predict(
       self,
       text_prompt: str,
+      system_prompt: str | None = None,
+      generation_config: dict | None = None,
   ) -> tuple[str, Optional[bool], Any]:
-    return self.predict_mm(text_prompt, [])
+    return self.predict_mm(text_prompt, [], system_prompt=system_prompt, generation_config=generation_config)
 
   def predict_mm(
-      self, text_prompt: str, images: list[np.ndarray]
+      self,
+      text_prompt: str,
+      images: list[np.ndarray],
+      system_prompt: str | None = None,
+      generation_config: dict = {},
   ) -> tuple[str, Optional[bool], Any]:
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': f'Bearer {self.openai_api_key}',
+        'Authorization': f'Bearer {self.api_key}',
     }
+
+    messages = []
+    if system_prompt:
+      messages.append({
+          'role': 'system',
+          'content': system_prompt,
+      })
+    messages.append({
+        'role': 'user',
+        'content': [
+            {'type': 'text', 'text': text_prompt},
+        ],
+    })
 
     payload = {
         'model': self.model,
-        'temperature': self.temperature,
-        'messages': [{
-            'role': 'user',
-            'content': [
-                {'type': 'text', 'text': text_prompt},
-            ],
-        }],
-        'max_tokens': 1000,
+        'max_tokens': 16384,
+        'messages': messages,
     }
+    if self.generation_config:
+      for key in ('temperature', 'top_k', 'top_p', 'max_tokens'):
+        if key in self.generation_config:
+          payload[key] = self.generation_config[key]
+    if generation_config:
+      for key in ('temperature', 'top_k', 'top_p', 'max_tokens'):
+        if key in generation_config:
+          payload[key] = generation_config[key]
 
     # Gpt-4v supports multiple images, just need to insert them in the content
     # list.
     for image in images:
-      payload['messages'][0]['content'].append({
+      payload['messages'][-1]['content'].append({
           'type': 'image_url',
           'image_url': {
               'url': f'data:image/jpeg;base64,{self.encode_image(image)}'
@@ -315,7 +190,7 @@ class Gpt4Wrapper(LlmWrapper, MultimodalLlmWrapper):
     while counter > 0:
       try:
         response = requests.post(
-            'https://api.openai.com/v1/chat/completions',
+            self.base_url,
             headers=headers,
             json=payload,
         )
@@ -339,3 +214,4 @@ class Gpt4Wrapper(LlmWrapper, MultimodalLlmWrapper):
         print('Error calling LLM, will retry soon...')
         print(e)
     return ERROR_CALLING_LLM, None, None
+  

@@ -1,0 +1,828 @@
+{
+  "User0Long_CalendarModifyMeeting_0.pkl.gz": {
+    "task_template": "User0Long_CalendarModifyMeeting",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Move the meeting from next Wednesday to next Thursday at the same time in simple calendar app.",
+    "group": "Long"
+  },
+  "User0Long_ClockSetAlarmBeforeFlight_0.pkl.gz": {
+    "task_template": "User0Long_ClockSetAlarmBeforeFlight",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Set an alarm for 7:00 PM today in clock app.",
+    "group": "Long"
+  },
+  "User0Long_SMSSendCancelHangout_0.pkl.gz": {
+    "task_template": "User0Long_SMSSendCancelHangout",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to William Jones via simple sms messenger app, saying: I have something to do, I can't play with you next weekend.",
+    "group": "Long"
+  },
+  "User0Long_SMSSendInviteHangout_0.pkl.gz": {
+    "task_template": "User0Long_SMSSendInviteHangout",
+    "is_successful": 1.0,
+    "episode_length": 4,
+    "goal": "Send a text message to Sarah Jones via simple sms messenger app, saying: Are you coming out to hang out with us today? The place is Center Park.",
+    "group": "Long"
+  },
+  "User0Long_TaodianOrderTShirt_0.pkl.gz": {
+    "task_template": "User0Long_TaodianOrderTShirt",
+    "is_successful": 1.0,
+    "episode_length": 18,
+    "goal": "Buy one S码 运动透气性T恤 on taodian app, contact name is Xiao Wang, phone number is 13344556677, address is Room 404, Building 3, No. 1288 zhongxing Street, Shanghai. Payment password is 123456.",
+    "group": "Long"
+  },
+  "User0Long_TaodianOrderWhiteTShirt_0.pkl.gz": {
+    "task_template": "User0Long_TaodianOrderWhiteTShirt",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Order one S码 经典白色T恤 on taodian app. Payment password is 123456.",
+    "group": "Long"
+  },
+  "User0Medium_CalendarAddEvent_0.pkl.gz": {
+    "task_template": "User0Medium_CalendarAddEvent",
+    "is_successful": 1.0,
+    "episode_length": 17,
+    "goal": "Add an event titled 'Annual Tech Conference' at Downtown Plaza from 20:45 to 21:45 on May 6 in simple calendar.",
+    "group": "Medium"
+  },
+  "User0Medium_ContactsAddFromCard_0.pkl.gz": {
+    "task_template": "User0Medium_ContactsAddFromCard",
+    "is_successful": 1.0,
+    "episode_length": 14,
+    "goal": "Add Richard Williams to contacts with phone number 4045231666 and email richard.williams94@apextech.com.",
+    "group": "Medium"
+  },
+  "User0Medium_ExpenseRecordOuting_0.pkl.gz": {
+    "task_template": "User0Medium_ExpenseRecordOuting",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Record an expense named 'outing' with amount 124.5 yuan and category 'Social' in pro expense.",
+    "group": "Medium"
+  },
+  "User0Medium_PhoneCallFromCard_0.pkl.gz": {
+    "task_template": "User0Medium_PhoneCallFromCard",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Call 4045231666.",
+    "group": "Medium"
+  },
+  "User0Medium_TasksCompletePaper_0.pkl.gz": {
+    "task_template": "User0Medium_TasksCompletePaper",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Mark the task 'Reading paper: Attention is all you need' as completed in tasks app.",
+    "group": "Medium"
+  },
+  "User0Short_CalendarAddEvent_0.pkl.gz": {
+    "task_template": "User0Short_CalendarAddEvent",
+    "is_successful": 1.0,
+    "episode_length": 16,
+    "goal": "I plan to have a picnic at Barstow from 2 p.m. to 6 p.m. the day after tomorrow. Please help me add this schedule to the simple calendar.",
+    "group": "Short"
+  },
+  "User0Short_ClockDeleteAlarm_0.pkl.gz": {
+    "task_template": "User0Short_ClockDeleteAlarm",
+    "is_successful": 1.0,
+    "episode_length": 4,
+    "goal": "Please delete the alarm for 14:00",
+    "group": "Short"
+  },
+  "User0Short_ContactsAddContact_0.pkl.gz": {
+    "task_template": "User0Short_ContactsAddContact",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Save the number 13811223344 as a contact named Courier.",
+    "group": "Short"
+  },
+  "User10Medium_ContactsAddJessicaGarcia2_0.pkl.gz": {
+    "task_template": "User10Medium_ContactsAddJessicaGarcia2",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Add a contact in contacts app with name 'Jessica Garcia 2' and phone number '5551078962'.",
+    "group": "Medium"
+  },
+  "User10Medium_GalleryFavoriteReceipt_0.pkl.gz": {
+    "task_template": "User10Medium_GalleryFavoriteReceipt",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Favorite the receipt_001.jpg image in simple gallery pro app.",
+    "group": "Medium"
+  },
+  "User10Medium_JingdianOrderTShirt_0.pkl.gz": {
+    "task_template": "User10Medium_JingdianOrderTShirt",
+    "is_successful": 1.0,
+    "episode_length": 19,
+    "goal": "Order a S 码 经典白色 T 恤 on jingdian app, contact name is William Smith, phone number is 12344445566, address is Room 505, 5th Floor, Beixintong Building, Beiyuan Road, Chaoyang District, Beijing. Payment password is 123456",
+    "group": "Medium"
+  },
+  "User10Medium_TasksAddPickupGifts_0.pkl.gz": {
+    "task_template": "User10Medium_TasksAddPickupGifts",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Add a todo 'Pick up gifts from David Johnson and Barbara Jones' in tasks app with due date tomorrow.",
+    "group": "Medium"
+  },
+  "User10Short_JoplinCreateNoteReading_0.pkl.gz": {
+    "task_template": "User10Short_JoplinCreateNoteReading",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a note in joplin app with title 'Reading' and body 'Today I read the Android World paper and Deep Residual Learning for Image Recognition paper'.",
+    "group": "Short"
+  },
+  "User10Short_PhoneCallRepairman_0.pkl.gz": {
+    "task_template": "User10Short_PhoneCallRepairman",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Call 5552596770 via phone app.",
+    "group": "Short"
+  },
+  "User10Short_SMSSendGamesToJennifer_0.pkl.gz": {
+    "task_template": "User10Short_SMSSendGamesToJennifer",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Jennifer Smith via simple sms messenger app, saying 'I recently played two games: 2048 and Solitairecg'",
+    "group": "Short"
+  },
+  "User11Long_ExpenseDeleteLendMoney_0.pkl.gz": {
+    "task_template": "User11Long_ExpenseDeleteLendMoney",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Delete the expense record named 'Lend to Sarah Jones' in pro expense app.",
+    "group": "Long"
+  },
+  "User11Long_ExpenseRecordAlipay_0.pkl.gz": {
+    "task_template": "User11Long_ExpenseRecordAlipay",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Record an expense in pro expense app named 'Alipay consumption' with amount 194 yuan and category 'Others'.",
+    "group": "Long"
+  },
+  "User11Long_JingdianOrderCola_0.pkl.gz": {
+    "task_template": "User11Long_JingdianOrderCola",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Order two boxes of canned cola on jingdian app. Payment password is 123456",
+    "group": "Long"
+  },
+  "User11Long_SMSSendPaperRecommendation_0.pkl.gz": {
+    "task_template": "User11Long_SMSSendPaperRecommendation",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Sarah Jones via simple sms messenger app, recommending the paper 'AndroidWorld'.",
+    "group": "Long"
+  },
+  "User11Long_TasksCompleteMultiple_0.pkl.gz": {
+    "task_template": "User11Long_TasksCompleteMultiple",
+    "is_successful": 1.0,
+    "episode_length": 4,
+    "goal": "Mark the tasks 'By some coco cola 🥤' and 'Buy one T-shirt' as completed in tasks app.",
+    "group": "Long"
+  },
+  "User11Long_TasksPreheatOven_0.pkl.gz": {
+    "task_template": "User11Long_TasksPreheatOven",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Create a todo in tasks app with title 'Preheat oven to 180°C'.",
+    "group": "Long"
+  },
+  "User11Medium_CalendarModifyGroupMeeting_0.pkl.gz": {
+    "task_template": "User11Medium_CalendarModifyGroupMeeting",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Modify the Group meeting event from May 7th to May 6th at 4:00 PM in simple calendar app.",
+    "group": "Medium"
+  },
+  "User11Medium_ExpenseRecordShopping_0.pkl.gz": {
+    "task_template": "User11Medium_ExpenseRecordShopping",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Record an expense in pro expense app named 'shopping' with amount 936.99 yuan and category 'Others'.",
+    "group": "Medium"
+  },
+  "User11Medium_ExpenseRecordTransfer_0.pkl.gz": {
+    "task_template": "User11Medium_ExpenseRecordTransfer",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Record an income in pro expense app named 'transfer' with amount 2400 yuan.",
+    "group": "Medium"
+  },
+  "User11Medium_TasksCreateCallPhone_0.pkl.gz": {
+    "task_template": "User11Medium_TasksCreateCallPhone",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a todo in tasks app with title 'Call 13988665523', due at 8 PM.",
+    "group": "Medium"
+  },
+  "User11Short_FilesDeletePaper_0.pkl.gz": {
+    "task_template": "User11Short_FilesDeletePaper",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Delete the papers named Vaswani 等 - 2023 - Attention Is All You Need.pdf and Vaswani 等 - 2023 - Attention Is All You Need copy.pdf from the files app.",
+    "group": "Short"
+  },
+  "User11Short_SMSSendNewPhonePrice_0.pkl.gz": {
+    "task_template": "User11Short_SMSSendNewPhonePrice",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Send a text message to Sarah Jones via simple sms messenger app, saying: I bought a new phone, it cost 7999 yuan.",
+    "group": "Short"
+  },
+  "User1Long_JoplinCreateNote2048_0.pkl.gz": {
+    "task_template": "User1Long_JoplinCreateNote2048",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a note in joplin app with title '2048' and body 'I scored 64 in 2048 today.'.",
+    "group": "Long"
+  },
+  "User1Long_PhoneCallNewAttendee_0.pkl.gz": {
+    "task_template": "User1Long_PhoneCallNewAttendee",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Call Barbara Jones via phone app.",
+    "group": "Long"
+  },
+  "User1Long_RetroMusicPlayFavoriteSong_0.pkl.gz": {
+    "task_template": "User1Long_RetroMusicPlayFavoriteSong",
+    "is_successful": 1.0,
+    "episode_length": 4,
+    "goal": "Play Moments in retro music app.",
+    "group": "Long"
+  },
+  "User1Long_SMSSendExpenseToContact_0.pkl.gz": {
+    "task_template": "User1Long_SMSSendExpenseToContact",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Send a text message to Charles Martinez via simple sms messenger app, saying 'I spent a total of 210 in my expense-tracking app.'",
+    "group": "Long"
+  },
+  "User1Long_SMSSendFavoriteSong_0.pkl.gz": {
+    "task_template": "User1Long_SMSSendFavoriteSong",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to William Brown via simple sms messenger app, saying 'My favorite song recently is Moments.'",
+    "group": "Long"
+  },
+  "User1Long_SMSSendTrailWalking_0.pkl.gz": {
+    "task_template": "User1Long_SMSSendTrailWalking",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Mary Johnson via simple sms messenger app, saying 'I completed my trail walking goal, 7.89 miles.'",
+    "group": "Long"
+  },
+  "User1Medium_GalleryDeleteReceipt_0.pkl.gz": {
+    "task_template": "User1Medium_GalleryDeleteReceipt",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Delete the receipt named receipt_001.jpg from simple gallery.",
+    "group": "Medium"
+  },
+  "User1Medium_RecipeDeleteRecipe_0.pkl.gz": {
+    "task_template": "User1Medium_RecipeDeleteRecipe",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Delete the Egg Fried Rice recipe from the Broccoli app.",
+    "group": "Medium"
+  },
+  "User1Medium_RecipeOpenRecipe_0.pkl.gz": {
+    "task_template": "User1Medium_RecipeOpenRecipe",
+    "is_successful": 1.0,
+    "episode_length": 4,
+    "goal": "Open the Quick Fried Rice recipe in the Broccoli app.",
+    "group": "Medium"
+  },
+  "User1Medium_SMSSendToContact_0.pkl.gz": {
+    "task_template": "User1Medium_SMSSendToContact",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Mary Brown via simple sms messenger asking if she has Sriracha at home.",
+    "group": "Medium"
+  },
+  "User1Short_ClockSetAlarm_0.pkl.gz": {
+    "task_template": "User1Short_ClockSetAlarm",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Set an alarm for 10 minutes from now.",
+    "group": "Short"
+  },
+  "User1Short_SMSSendToContact_0.pkl.gz": {
+    "task_template": "User1Short_SMSSendToContact",
+    "is_successful": 1.0,
+    "episode_length": 16,
+    "goal": "Share the Spicy Tuna Wrap recipe with Barbara Jones via simple sms messenger.",
+    "group": "Short"
+  },
+  "User1Short_SMSSendVerificationCode_0.pkl.gz": {
+    "task_template": "User1Short_SMSSendVerificationCode",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send the verification code I just received: 8781 to Jennifer Smith via simple sms messenger.",
+    "group": "Short"
+  },
+  "User2Long_BroccoliFavoriteRecipe_0.pkl.gz": {
+    "task_template": "User2Long_BroccoliFavoriteRecipe",
+    "is_successful": 1.0,
+    "episode_length": 5,
+    "goal": "Favorite the Spicy Clams recipe in broccoli app.",
+    "group": "Long"
+  },
+  "User2Long_CalendarAddInterview_0.pkl.gz": {
+    "task_template": "User2Long_CalendarAddInterview",
+    "is_successful": 1.0,
+    "episode_length": 13,
+    "goal": "Add an interview event on May 20 from 14:00 to 15:00 in simple calendar app.",
+    "group": "Long"
+  },
+  "User2Long_ContactsUpdateJennifer_0.pkl.gz": {
+    "task_template": "User2Long_ContactsUpdateJennifer",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Update Jennifer Smith's phone number to 5553300678 in contacts app.",
+    "group": "Long"
+  },
+  "User2Medium_ChilemeiOrderFood_0.pkl.gz": {
+    "task_template": "User2Medium_ChilemeiOrderFood",
+    "is_successful": 1.0,
+    "episode_length": 10,
+    "goal": "Order one 牛肉面(大份) from 好味道中餐馆 on chilemei app.",
+    "group": "Medium"
+  },
+  "User2Medium_ChilemeiOrderFruit_0.pkl.gz": {
+    "task_template": "User2Medium_ChilemeiOrderFruit",
+    "is_successful": 1.0,
+    "episode_length": 18,
+    "goal": "Order 10 portions of 草莓 from 绿色水果店 on chilemei app.",
+    "group": "Medium"
+  },
+  "User2Medium_ExpenseAddOther_0.pkl.gz": {
+    "task_template": "User2Medium_ExpenseAddOther",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Record an expense of 180.57 yuan named technology with the category set to Others in the pro expense app.",
+    "group": "Medium"
+  },
+  "User2Medium_RetroMusicAddToPlaylist_0.pkl.gz": {
+    "task_template": "User2Medium_RetroMusicAddToPlaylist",
+    "is_successful": 1.0,
+    "episode_length": 10,
+    "goal": "Add the songs Forever Young and Moments to a playlist in retro music.",
+    "group": "Medium"
+  },
+  "User2Short_CalendarAddEvent_0.pkl.gz": {
+    "task_template": "User2Short_CalendarAddEvent",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Please add a Team Meeting event on May 6th at 11:00 AM on simple calendar.",
+    "group": "Short"
+  },
+  "User2Short_ClockSetAlarm_0.pkl.gz": {
+    "task_template": "User2Short_ClockSetAlarm",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Set an alarm for April 30th at 5:30 PM.",
+    "group": "Short"
+  },
+  "User2Short_JoplinAddNoteFromSms_0.pkl.gz": {
+    "task_template": "User2Short_JoplinAddNoteFromSms",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Friend sent me a text saying: We went to Fengke Wanda for a gathering at 7 p.m. on April 30, please help me record it in the Joplin notes with title 'Going Out'.",
+    "group": "Short"
+  },
+  "User3Long_BroccoliAddKungPaoChicken_0.pkl.gz": {
+    "task_template": "User3Long_BroccoliAddKungPaoChicken",
+    "is_successful": 1.0,
+    "episode_length": 16,
+    "goal": "Add a recipe for 'Kung Pao Chicken' to broccoli app with the following details: Description: A classic home-style Sichuan dish. The chicken is tender with a sweet, sour and slightly spicy taste. Paired with crispy peanuts, it is appetizing and goes well with rice., Servings: 2-3 people, Preparation Time: 20 minutes, Ingredients: 250g chicken breast, 40g cooked peanuts, proper amount of dried chili peppers, scallions, ginger and garlic, Marinade: light soy sauce, cooking wine, a little starch, Sauce: light soy sauce, sugar, vinegar, water, starch., Directions: 1. Dice the chicken, add marinade and mix well. Marinate for ten minutes.\n2. Chop scallions, ginger and garlic, then mix all seasonings to make the sauce.\n3. Stir-fry diced chicken in hot oil until discolored and take out.",
+    "group": "Long"
+  },
+  "User3Long_ClockSetAlarmForDelivery_0.pkl.gz": {
+    "task_template": "User3Long_ClockSetAlarmForDelivery",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Set an alarm for 19:25 in clock app.",
+    "group": "Long"
+  },
+  "User3Long_ExpenseRecordClothes_0.pkl.gz": {
+    "task_template": "User3Long_ExpenseRecordClothes",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Record an expense in pro expense app with amount 139.99 yuan and category 'Clothes'.",
+    "group": "Long"
+  },
+  "User3Long_TasksCreatePickup_0.pkl.gz": {
+    "task_template": "User3Long_TasksCreatePickup",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a todo in tasks app named 'Pickup Package' with notes: Pickup code: 23-2797.",
+    "group": "Long"
+  },
+  "User3Medium_CalendarAddEvent_0.pkl.gz": {
+    "task_template": "User3Medium_CalendarAddEvent",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Add an all-day outing event on Sunday at West Menlo Park in simple calendar.",
+    "group": "Medium"
+  },
+  "User3Medium_ClockSetAlarm_0.pkl.gz": {
+    "task_template": "User3Medium_ClockSetAlarm",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Set an alarm for 12:00 AM on Sunday.",
+    "group": "Medium"
+  },
+  "User3Medium_ContactsAddContact_0.pkl.gz": {
+    "task_template": "User3Medium_ContactsAddContact",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Save the phone number 15551234567 as a contact with the first name 'my phone'.",
+    "group": "Medium"
+  },
+  "User3Medium_GalleryDeleteScreenshot_0.pkl.gz": {
+    "task_template": "User3Medium_GalleryDeleteScreenshot",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Delete the file named screenshot.png from simple gallery.",
+    "group": "Medium"
+  },
+  "User3Short_GalleryDeletePhoto_0.pkl.gz": {
+    "task_template": "User3Short_GalleryDeletePhoto",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Delete the receipt named receipt_001.jpg from the simple gallery.",
+    "group": "Short"
+  },
+  "User3Short_GalleryDeleteScreenshot_0.pkl.gz": {
+    "task_template": "User3Short_GalleryDeleteScreenshot",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Delete the screenshot I accidentally took while reading a novel, named screenshot.png from the simple gallery.",
+    "group": "Short"
+  },
+  "User3Short_SMSSendVerificationCodeFromScreenshot_0.pkl.gz": {
+    "task_template": "User3Short_SMSSendVerificationCodeFromScreenshot",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Send the verification code: 4444 to the number 127843390 via simple sms messenger.",
+    "group": "Short"
+  },
+  "User4Long_ChilemeiOrderSpicyChicken_0.pkl.gz": {
+    "task_template": "User4Long_ChilemeiOrderSpicyChicken",
+    "is_successful": 1.0,
+    "episode_length": 14,
+    "goal": "Order 4 portions of 麻辣鸡块 from 大大炸鸡 on chilemei app, deliver to 北京市朝阳区, contact name is 张三, phone number is 13812345678.",
+    "group": "Long"
+  },
+  "User4Long_ExpenseRecordTravel_0.pkl.gz": {
+    "task_template": "User4Long_ExpenseRecordTravel",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Record an expense in pro expense app named 'Travel' with amount 1035 yuan and category 'Social'.",
+    "group": "Long"
+  },
+  "User4Long_GalleryDeleteDress_0.pkl.gz": {
+    "task_template": "User4Long_GalleryDeleteDress",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Delete the file named 2.png from simple gallery app.",
+    "group": "Long"
+  },
+  "User4Long_JoplinCreateNoteClothes_0.pkl.gz": {
+    "task_template": "User4Long_JoplinCreateNoteClothes",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Create a note in joplin app with title 'Clothes' and body 'Style: t-shirt, Price: 79 yuan'.",
+    "group": "Long"
+  },
+  "User4Long_JoplinCreateNoteThreeBody_0.pkl.gz": {
+    "task_template": "User4Long_JoplinCreateNoteThreeBody",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Create a note in joplin app with title 'Reading 三体' and body 'Currently on page 12'.",
+    "group": "Long"
+  },
+  "User4Long_TuantuanOrderKungPaoChicken_0.pkl.gz": {
+    "task_template": "User4Long_TuantuanOrderKungPaoChicken",
+    "is_successful": 1.0,
+    "episode_length": 14,
+    "goal": "Order one 宫保鸡丁 from 好味道中餐馆 on tuantuanwaimai app, deliver to Lijin Land Center in Weigongcun, contact name is Me, phone number is 13312345678.",
+    "group": "Long"
+  },
+  "User4Medium_ChilemeiOrderNoodles_0.pkl.gz": {
+    "task_template": "User4Medium_ChilemeiOrderNoodles",
+    "is_successful": 1.0,
+    "episode_length": 15,
+    "goal": "Order one 经典肉酱面 from 意式手工面坊 on chilemei app for Barbara Jones, phone number 13344556677, deliver to Lijin Land Center, Weigongcun Road, Haidian District, Beijing.",
+    "group": "Medium"
+  },
+  "User4Medium_RetroMusicPlaySong_0.pkl.gz": {
+    "task_template": "User4Medium_RetroMusicPlaySong",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Play Bright Lights in retro music.",
+    "group": "Medium"
+  },
+  "User4Medium_TaodianOrderTShirt_0.pkl.gz": {
+    "task_template": "User4Medium_TaodianOrderTShirt",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Order one S码 运动型透气T恤 from taodian app. The payment password is: 123456.",
+    "group": "Medium"
+  },
+  "User4Medium_TasksCreateTodo_0.pkl.gz": {
+    "task_template": "User4Medium_TasksCreateTodo",
+    "is_successful": 1.0,
+    "episode_length": 12,
+    "goal": "Create a todo in tasks named 'trail run' with due date 2026-05-21 and notes '4.42 miles left to run' in tasks app.",
+    "group": "Medium"
+  },
+  "User4Short_PhoneCallBack_0.pkl.gz": {
+    "task_template": "User4Short_PhoneCallBack",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Call the number 18648653410.",
+    "group": "Short"
+  },
+  "User4Short_SMSSendBirthdayWish_0.pkl.gz": {
+    "task_template": "User4Short_SMSSendBirthdayWish",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a birthday wish text message to Mary Brown via simple sms messenger saying: Happy Birthday",
+    "group": "Short"
+  },
+  "User4Short_SMSSendPhoneNumber_0.pkl.gz": {
+    "task_template": "User4Short_SMSSendPhoneNumber",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send the number 18576583527 to Jennifer Smith via simple sms messenger.",
+    "group": "Short"
+  },
+  "User5Long_SMSSendDeliveryDriverPhone_0.pkl.gz": {
+    "task_template": "User5Long_SMSSendDeliveryDriverPhone",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Send a text message to Sarah Jones via simple sms messenger app, saying 'Delivery driver phone number: 17907938000'",
+    "group": "Long"
+  },
+  "User5Long_TaodianOrderTShirt_0.pkl.gz": {
+    "task_template": "User5Long_TaodianOrderTShirt",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Buy the 运动透气性T恤 in taodian app, size M码. The payment password is 123456.",
+    "group": "Long"
+  },
+  "User5Long_TasksCreateGuitarPractice_0.pkl.gz": {
+    "task_template": "User5Long_TasksCreateGuitarPractice",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a todo in tasks app named 'Guitar Practice' with notes: Practice guitar performance of Forever Young.",
+    "group": "Long"
+  },
+  "User5Long_TasksUpdateMaryJones_0.pkl.gz": {
+    "task_template": "User5Long_TasksUpdateMaryJones",
+    "is_successful": 1.0,
+    "episode_length": 13,
+    "goal": "Delete the todo named 'Help Mary Jones pay 15 yuan' and create a new todo named 'Help Mary Jones pay 20 yuan' with due date 2026-05-12 in tasks app.",
+    "group": "Long"
+  },
+  "User5Medium_ExpenseRecordCola_0.pkl.gz": {
+    "task_template": "User5Medium_ExpenseRecordCola",
+    "is_successful": 1.0,
+    "episode_length": 7,
+    "goal": "Record an expense in pro expense named 'cola' with amount 19.5 yuan and category 'Food'.",
+    "group": "Medium"
+  },
+  "User5Medium_GalleryRenameReceipt_0.pkl.gz": {
+    "task_template": "User5Medium_GalleryRenameReceipt",
+    "is_successful": 1.0,
+    "episode_length": 10,
+    "goal": "Rename receipt_001.jpg to technology.jpg in simple gallery.",
+    "group": "Medium"
+  },
+  "User5Medium_SMSSendToWilliam_0.pkl.gz": {
+    "task_template": "User5Medium_SMSSendToWilliam",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to William Smith via simple sms messenger app, asking 'are we going to Yuma or Indio this weekend?'",
+    "group": "Medium"
+  },
+  "User5Medium_TasksCreateReminder_0.pkl.gz": {
+    "task_template": "User5Medium_TasksCreateReminder",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Create a todo in tasks named 'Debt Collection' with due date 2026-05-15, notes: Remind David Johnson to repay the money.",
+    "group": "Medium"
+  },
+  "User5Short_ExpenseAddSalary_0.pkl.gz": {
+    "task_template": "User5Short_ExpenseAddSalary",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Record an income of 8000 yuan as salary in the pro expense app.",
+    "group": "Short"
+  },
+  "User5Short_PhoneCallDebtor_0.pkl.gz": {
+    "task_template": "User5Short_PhoneCallDebtor",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Call David Johnson.",
+    "group": "Short"
+  },
+  "User5Short_RetroMusicPlaySong_0.pkl.gz": {
+    "task_template": "User5Short_RetroMusicPlaySong",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Please play the song 'Moments' for me in retro music.",
+    "group": "Short"
+  },
+  "User5Short_SmsSendExpenseToContact_0.pkl.gz": {
+    "task_template": "User5Short_SmsSendExpenseToContact",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Mary Brown via simple sms messenger saying: I spent 9000 yuan.",
+    "group": "Short"
+  },
+  "User6Medium_SMSSendDebtReminder_0.pkl.gz": {
+    "task_template": "User6Medium_SMSSendDebtReminder",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Jennifer Smith via simple sms messenger app, saying 'You owe me 150 yuan, when will you pay me back?'",
+    "group": "Medium"
+  },
+  "User6Medium_SMSSendShoppingList_0.pkl.gz": {
+    "task_template": "User6Medium_SMSSendShoppingList",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Send the shopping list from Joplin to Mary Brown via simple sms messenger app.",
+    "group": "Medium"
+  },
+  "User6Medium_TasksCreateBirthdayWish_0.pkl.gz": {
+    "task_template": "User6Medium_TasksCreateBirthdayWish",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a todo in tasks app with content 'Send birthday wishes to Jennifer Smith' and due date 2026-05-22.",
+    "group": "Medium"
+  },
+  "User6Medium_TuantuanOrderBurgers_0.pkl.gz": {
+    "task_template": "User6Medium_TuantuanOrderBurgers",
+    "is_successful": 1.0,
+    "episode_length": 12,
+    "goal": "Order one 香辣鸡腿堡 and one 双层牛肉堡 from 美味汉堡王 on tuantuanwaimai app, with remark: 'Make the Spicy Chicken Leg Burger mildly spicy; for the Double Beef Burger, add extra cheese and omit lettuce.'.",
+    "group": "Medium"
+  },
+  "User6Short_CalendarAddTrip_0.pkl.gz": {
+    "task_template": "User6Short_CalendarAddTrip",
+    "is_successful": 1.0,
+    "episode_length": 10,
+    "goal": "Create an all-day event in simple calendar app titled 'Trip to New York' on May 30 with location 'New York'.",
+    "group": "Short"
+  },
+  "User6Short_ExpenseRecordDinner_0.pkl.gz": {
+    "task_template": "User6Short_ExpenseRecordDinner",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Record an expense in pro expense app named 'dinner' with amount 50 yuan and category 'Social'.",
+    "group": "Short"
+  },
+  "User6Short_TasksCreateMeeting_0.pkl.gz": {
+    "task_template": "User6Short_TasksCreateMeeting",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Create a todo in tasks app named 'Meeting with Sarah Jones' with due date 2026-05-19.",
+    "group": "Short"
+  },
+  "User7Long_JingdianOrderCola_0.pkl.gz": {
+    "task_template": "User7Long_JingdianOrderCola",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Order two boxes of canned sugar-free cola on jingdian app. Payment password is 123456",
+    "group": "Long"
+  },
+  "User7Long_OpenSolitairecg_0.pkl.gz": {
+    "task_template": "User7Long_OpenSolitairecg",
+    "is_successful": 1.0,
+    "episode_length": 2,
+    "goal": "Open the solitairecg app.",
+    "group": "Long"
+  },
+  "User7Long_SMSSendFoodDelivery_0.pkl.gz": {
+    "task_template": "User7Long_SMSSendFoodDelivery",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Mary Brown via simple sms messenger app, saying 'I ordered food delivery for you, have you received it?'",
+    "group": "Long"
+  },
+  "User7Long_SMSSendQuoteToContact_0.pkl.gz": {
+    "task_template": "User7Long_SMSSendQuoteToContact",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Send a text message to Barbara Jones via simple sms messenger app, saying 'Life is like tea; it won't be bitter forever, but it will be bitter for a while. I think it's a great quote.'",
+    "group": "Long"
+  },
+  "User7Long_TaodianOrderDress_0.pkl.gz": {
+    "task_template": "User7Long_TaodianOrderDress",
+    "is_successful": 1.0,
+    "episode_length": 19,
+    "goal": "Buy one 女士蕾丝花卉鸡尾酒连衣裙 on taodian app, contact name is Zhao Si, phone number is 15551234567, address is Building 1, Yard 56, Chaoyang North Road. Payment password is 123456.",
+    "group": "Long"
+  },
+  "User7Long_TasksCreateShoppingList_0.pkl.gz": {
+    "task_template": "User7Long_TasksCreateShoppingList",
+    "is_successful": 1.0,
+    "episode_length": 12,
+    "goal": "Add a todo in tasks app with title 'Buy ingredients' and notes: Main ingredient: 500g pork ribs, choose lean pork ribs with less bones and more meat for better taste.\nSeasoning: rock sugar, light soy sauce, dark soy sauce, cooking wine, scallions, ginger, garlic, star anise, cinnamon, fragrant leaves. Due date is today.",
+    "group": "Long"
+  },
+  "User8Medium_BroccoliAddChiliFriedPorkNoodles_0.pkl.gz": {
+    "task_template": "User8Medium_BroccoliAddChiliFriedPorkNoodles",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Create a recipe in broccoli app with title 'Chili Fried Pork Noodles', ingredients: Fresh noodles 1 bunch, pork 150g, 4 green peppers, 2 garlic cloves. 2 tbsp light soy sauce, 0.5 tbsp dark soy sauce, a pinch of salt, 1 tbsp oyster sauce, cooking oil, and directions: 1. Slice the pork, cut green peppers into strips, slice garlic. 2. Boil water, cook the noodles. Take out, rinse with cold water and drain. 3. Heat oil in a pan, stir-fry pork until discolored and oily. 4. Add garlic, stir until fragrant. Pour in dark soy sauce, light soy sauce and oyster sauce. 5. Add green peppers and stir-fry until half-cooked, add salt to taste. 6. Add the noodles, stir well over high heat and serve.",
+    "group": "Medium"
+  },
+  "User8Medium_BroccoliOpenGreekSalad_0.pkl.gz": {
+    "task_template": "User8Medium_BroccoliOpenGreekSalad",
+    "is_successful": 1.0,
+    "episode_length": 3,
+    "goal": "Open the Greek Salad Pita Pockets recipe in broccoli app.",
+    "group": "Medium"
+  },
+  "User8Medium_CalendarAddNeighborhoodWalk_0.pkl.gz": {
+    "task_template": "User8Medium_CalendarAddNeighborhoodWalk",
+    "is_successful": 1.0,
+    "episode_length": 13,
+    "goal": "Create a calendar event in simple calendar app with title 'neighborhood walk 5.28 mile' on 2026-05-20. Time: 7 p.m. to 10 p.m.",
+    "group": "Medium"
+  },
+  "User8Medium_TasksCreateTuition_0.pkl.gz": {
+    "task_template": "User8Medium_TasksCreateTuition",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Create a todo in tasks app named 'pay tuition fee' with due date 2026-06-16.",
+    "group": "Medium"
+  },
+  "User8Short_ContactsAddPlumber_0.pkl.gz": {
+    "task_template": "User8Short_ContactsAddPlumber",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Add a contact in contacts app named 'Plumber' with phone number 13461214923.",
+    "group": "Short"
+  },
+  "User8Short_RecipeDeleteBBQChicken_0.pkl.gz": {
+    "task_template": "User8Short_RecipeDeleteBBQChicken",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Delete the recipe named 'BBQ Chicken Quesadillas' with description 'Perfect for meal prep and leftovers' in broccoli app.",
+    "group": "Short"
+  },
+  "User8Short_SMSSendDoorDelivery_0.pkl.gz": {
+    "task_template": "User8Short_SMSSendDoorDelivery",
+    "is_successful": 1.0,
+    "episode_length": 8,
+    "goal": "Send a text message to 10359 via simple sms messenger app, saying 'Leave the food at the door'",
+    "group": "Short"
+  },
+  "User9Long_BroccoliDeletePanSearedSalmon_0.pkl.gz": {
+    "task_template": "User9Long_BroccoliDeletePanSearedSalmon",
+    "is_successful": 1.0,
+    "episode_length": 6,
+    "goal": "Delete the Pan-Seared Salmon with Quinoa recipe (servings: 2) in broccoli app.",
+    "group": "Long"
+  },
+  "User9Long_BroccoliModifySpicyTunaWraps_0.pkl.gz": {
+    "task_template": "User9Long_BroccoliModifySpicyTunaWraps",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Modify the Spicy Tuna Wraps recipe's Directions to 'Drain the tuna, then mix in Korean chili paste and a little mayonnaise to create a spicy filling; Spread the rice evenly over the nori, press it down firmly, then layer the vegetable strips, tuna filling, and pork floss in that order; Roll it up tightly from one end, then cut it into small pieces' in broccoli app.",
+    "group": "Long"
+  },
+  "User9Long_CalendarAddFieldTrip_0.pkl.gz": {
+    "task_template": "User9Long_CalendarAddFieldTrip",
+    "is_successful": 1.0,
+    "episode_length": 10,
+    "goal": "Add a calendar event in simple calendar app with title 'Field trip to Alibaba' at 2:00 PM on 2026-05-20.",
+    "group": "Long"
+  },
+  "User9Long_CalendarModifyInfoSecTraining_0.pkl.gz": {
+    "task_template": "User9Long_CalendarModifyInfoSecTraining",
+    "is_successful": 1.0,
+    "episode_length": 14,
+    "goal": "Modify the information security training session event on 2026-05-15 to start at 14:30 in simple calendar app, and then change the 2:00 PM alarm to 2:30 PM.",
+    "group": "Long"
+  },
+  "User9Long_JoplinAddReimbursementNote_0.pkl.gz": {
+    "task_template": "User9Long_JoplinAddReimbursementNote",
+    "is_successful": 1.0,
+    "episode_length": 9,
+    "goal": "Create a note in joplin app with title 'Reimbursement' and body 'Need to reimburse 68.02 yuan'.",
+    "group": "Long"
+  },
+  "User9Long_TaodianOrderMouse_0.pkl.gz": {
+    "task_template": "User9Long_TaodianOrderMouse",
+    "is_successful": 1.0,
+    "episode_length": 11,
+    "goal": "Buy a 罗技 G102 游戏鼠标 on taodian app. Payment password is 123456",
+    "group": "Long"
+  }
+}
