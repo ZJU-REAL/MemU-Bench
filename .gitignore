@@ -19,12 +19,8 @@
 !/move_data/**
 !/apks/
 !/apks/**
-!/user_database/
-/user_database/*
-!/user_database/.gitkeep
-!/user_history/
-/user_history/*
-!/user_history/.gitkeep
+/user_database/
+  /user_history/
 !/memory_generation/
 !/memory_generation/**
 /memory_generation/memory/ablation.py
