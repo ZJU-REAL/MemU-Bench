@@ -51,8 +51,6 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 │   ├── agents/                     # Agent implementations
 │   ├── task_evals/fixed_tasks/     # Task definitions per user/history-length
 │   └── env/                        # Android environment & ADB utilities
-├── fixed.env                        # Fixed API configurations (judger & grounding models)
-└── .env                            # Model & API credentials
 ```
 
 ## Installation
@@ -88,7 +86,7 @@ The full evaluation pipeline consists of the following steps:
 
 ### Step 1: Download the Dataset
 
-Download the dataset and place it in the project root:
+Download the dataset from [https://huggingface.co/datasets/vagrt/MemU-Bench-data](https://huggingface.co/datasets/vagrt/MemU-Bench-data) and place it in the project root:
 - `apks/` — app APK files for emulator setup
 - `user_database/` — contains app data for each user, used for emulator initialization. The dataset is distributed as `user_*.tar.zst` archives; extract them in the project root before running the pipeline:
   ```bash
@@ -100,8 +98,6 @@ Download the dataset and place it in the project root:
   Install `zstd` first if it is unavailable (for example, `brew install zstd` on macOS).
   After extraction, the directory should contain `user_database/user_0/` through `user_database/user_11/`.
 - `user_history/` — contains user operation logs (screenshots + `processed.jsonl`), used for memory generation and retrieval
-
-> **Note:** Download links will be provided later.
 
 ### Step 2: Create the Android Emulator
 
