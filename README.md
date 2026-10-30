@@ -57,7 +57,7 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 
 1. Set up the Android Emulator
 
-   Download [Android Studio](https://developer.android.com/studio) and create an Android Virtual Device (AVD): select **Pixel 6**, System Image **Tiramisu, API Level 33**, and AVD name **MemUBenchAvd**.
+   Download [Android Studio](https://developer.android.com/studio) and create an Android Virtual Device (AVD): select **Pixel 6**, System Image **Tiramisu, API Level 33**, and AVD name **MemUBenchAvd**. Emulator setup instructions can also be found in [AndroidWorld](https://github.com/google-research/android_world).
 
 2. Create a conda environment
 
@@ -262,4 +262,4 @@ As long as the retrieval output format is consistent, the downstream steps (onli
 
 ## Acknowledgements
 
-This codebase is built upon [AndroidWorld](https://github.com/google-research/android_world).
+This codebase is built upon [AndroidWorld](https://github.com/google-research/android_world). For emulator configuration details, see the AndroidWorld documentation.
