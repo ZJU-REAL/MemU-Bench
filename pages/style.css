@@ -2622,3 +2622,12 @@ h3 {
     line-height: 1.35;
   }
 }
+
+/* hand-off cue in the method figure (replaces connector lines) */
+.mb-ping {
+  animation: mb-ping 1.1s ease-out;
+}
+@keyframes mb-ping {
+  0% { box-shadow: 0 0 0 0 rgb(18 156 147 / 0.45); }
+  100% { box-shadow: 0 0 0 14px rgb(18 156 147 / 0); }
+}

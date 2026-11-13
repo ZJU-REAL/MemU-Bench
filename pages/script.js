@@ -397,62 +397,14 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     wires.innerHTML = "";
   }
   function wire(a, b, mode, fast) {
+    // No connector lines (they crossed other panels): briefly ring the receiving panel instead.
     clearWire();
-    if (fast || reduceMotion || innerWidth < 980 || !visible(a) || !visible(b)) return;
-    const s = stage.getBoundingClientRect();
-    const ra = a.getBoundingClientRect();
-    const rb = b.getBoundingClientRect();
-    let d;
-    if (mode === "down") {
-      const x1 = ra.left + ra.width / 2 - s.left;
-      const y1 = ra.bottom - s.top;
-      const x2 = rb.left + rb.width / 2 - s.left;
-      const y2 = rb.top - s.top;
-      const my = (y1 + y2) / 2;
-      d = `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
-    } else if (rb.left + rb.width / 2 < ra.left + ra.width / 2) {
-      // leftward: from the left edge of a to the right edge of b
-      const x1 = ra.left - s.left;
-      const y1 = ra.top + ra.height / 2 - s.top;
-      const x2 = rb.right - s.left;
-      const y2 = rb.top + Math.min(rb.height / 2, 120) - s.top;
-      const mx = (x1 + x2) / 2;
-      d = `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
-    } else {
-      const x1 = ra.right - s.left;
-      const y1 = ra.top + ra.height / 2 - s.top;
-      const x2 = rb.left - s.left;
-      const y2 = rb.top + Math.min(rb.height / 2, 60) - s.top;
-      const mx = (x1 + x2) / 2;
-      d = `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
-    }
-    const ns = "http://www.w3.org/2000/svg";
-    const path = document.createElementNS(ns, "path");
-    path.setAttribute("d", d);
-    path.setAttribute("class", "mb-wire");
-    wires.append(path);
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = `${len}`;
-    path.style.strokeDashoffset = `${len}`;
-    void path.getBoundingClientRect();
-    path.style.strokeDashoffset = "0";
-    const dot = document.createElementNS(ns, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("class", "mb-wire-dot");
-    wires.append(dot);
+    if (fast || reduceMotion || !b || !visible(b)) return;
+    b.classList.remove("mb-ping");
+    void b.offsetWidth;
+    b.classList.add("mb-ping");
     const id = wireAnim;
-    const t0 = performance.now();
-    const step = (now) => {
-      if (id !== wireAnim) return;
-      const k = Math.min((now - t0) / 900, 1);
-      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-      const pt = path.getPointAtLength(e * len);
-      dot.setAttribute("cx", pt.x);
-      dot.setAttribute("cy", pt.y);
-      if (k < 1) requestAnimationFrame(step);
-      else dot.style.opacity = "0.0";
-    };
-    requestAnimationFrame(step);
+    setTimeout(() => { if (id === wireAnim) b.classList.remove("mb-ping"); }, 1100);
   }
 
   /* ---------- reset to the empty state ---------- */
