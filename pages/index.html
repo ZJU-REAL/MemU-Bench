@@ -16,11 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link href="style.css?v=20261114e" rel="stylesheet" />
+    <link href="style.css?v=20261114f" rel="stylesheet" />
     <script>
       document.documentElement.classList.add("js");
     </script>
-    <script defer src="script.js?v=20261114e"></script>
+    <script defer src="script.js?v=20261114f"></script>
   </head>
   <body>
     <a class="mb-skip" href="#main">Skip to content</a>
@@ -80,21 +80,60 @@
             </div>
           </div>
 
-          <figure class="mb-hero-visual" aria-label="Examples of ambiguous instructions from the task suite">
-            <div class="mb-phone mb-phone--hero">
-              <div class="mb-phone-screen">
-                <div class="mb-status"><span>9:41</span><span class="mb-status-dots"><i></i><i></i><i></i></span></div>
-                <p class="mb-hero-label">Instructions from the task suite</p>
-                <div class="mb-bubble">Please delete the alarm <mark>I just set</mark>.</div>
-                <div class="mb-bubble">Save <mark>the first call this morning</mark> as a contact named Courier in contacts app.</div>
-                <div class="mb-bubble">Play <mark>my favorite song</mark> in retro music app.</div>
-                <div class="mb-bubble mb-bubble--q">Which alarm? Which call? Which song?</div>
+          <figure class="mb-hero-visual" aria-label="A vague request in an assistant app, and the user's earlier app activity that resolves it">
+            <div class="mb-dev">
+              <div class="mb-dev-screen">
+                <span class="mb-dev-cam" aria-hidden="true"></span>
+                <div class="mb-dev-status" aria-hidden="true">
+                  <span class="mb-dev-time">8:58</span>
+                  <span class="mb-dev-icons">
+                    <svg viewBox="0 0 16 16"><path d="M8 13.6 15.4 4.4A11.8 11.8 0 0 0 8 1.8 11.8 11.8 0 0 0 .6 4.4z" /></svg>
+                    <svg viewBox="0 0 16 16"><path d="M14.5 1.5v13h-13z" /></svg>
+                    <span class="mb-dev-pct">84%</span>
+                    <svg class="mb-dev-batt" viewBox="0 0 26 14"><rect x="0.75" y="0.75" width="21.5" height="12.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.5" /><rect x="2.8" y="2.8" width="14.6" height="8.4" rx="1.6" /><path d="M23.8 4.6c1 .3 1.6 1.2 1.6 2.4s-.6 2.1-1.6 2.4z" /></svg>
+                  </span>
+                </div>
+
+                <div class="mb-dev-appbar">
+                  <svg class="mb-dev-back" aria-hidden="true" viewBox="0 0 24 24"><path d="M15.5 4.5 8 12l7.5 7.5" /></svg>
+                  <span class="mb-dev-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3.5l1.9 4.7 4.6 1.9-4.6 1.9L12 16.7l-1.9-4.7-4.6-1.9 4.6-1.9z" /><circle cx="18" cy="17.5" r="1.6" /><circle cx="6.5" cy="18.5" r="1.1" /></svg>
+                  </span>
+                  <span class="mb-dev-who"><b>Assistant</b><small><i></i>online</small></span>
+                  <svg class="mb-dev-more" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="18.5" r="1.6" /></svg>
+                </div>
+
+                <div class="mb-dev-chat">
+                  <span class="mb-dev-day">Today</span>
+                  <p class="mb-msg mb-msg--me">Please delete the alarm <mark>I just set</mark>.<time>8:56</time></p>
+                  <p class="mb-msg mb-msg--me">Save <mark>the first call this morning</mark> as a contact named Courier in contacts app.<time>8:57</time></p>
+                  <p class="mb-msg mb-msg--me">Play <mark>my favorite song</mark> in retro music app.<time>8:57</time></p>
+                  <p class="mb-msg mb-msg--bot">Which alarm? Which call? Which song?<time>8:58</time></p>
+                </div>
+
+                <div class="mb-dev-input" aria-hidden="true">
+                  <span class="mb-dev-field">
+                    <span>Message</span>
+                    <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" /></svg>
+                  </span>
+                  <span class="mb-dev-send"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4.5 16-3.6-6.4z" /></svg></span>
+                </div>
+                <span class="mb-dev-gesture" aria-hidden="true"></span>
               </div>
             </div>
-            <div class="mb-strip" aria-hidden="true">
-              <span class="mb-strip-label">user history</span>
-              <span class="mb-strip-frames"><i></i><i></i><i></i><i></i><i></i><i></i></span>
-            </div>
+
+            <figcaption class="mb-hfilm">
+              <span class="mb-hfilm-head"><b>User history</b> · earlier today</span>
+              <ol class="mb-hfilm-row">
+                <li class="is-key"><img alt="Clock app with a 7:30 alarm newly set" height="100" src="assets/history/clock.jpg" width="46" /><span>Clock</span><time>08:24</time></li>
+                <li class="is-key"><img alt="Phone call log with an incoming 8:12 call from 555-0142" height="100" src="assets/history/calls.jpg" width="46" /><span>Phone</span><time>08:30</time></li>
+                <li class="is-key"><img alt="Music player playing Sunny Day" height="100" src="assets/history/music.jpg" width="46" /><span>Music</span><time>08:36</time></li>
+                <li><img alt="Photo gallery" height="100" src="assets/history/gallery.jpg" width="46" /><span>Gallery</span><time>08:40</time></li>
+                <li><img alt="Chat conversation" height="100" src="assets/history/chat.jpg" width="46" /><span>Chat</span><time>08:46</time></li>
+                <li><img alt="Map showing a park" height="100" src="assets/history/map.jpg" width="46" /><span>Map</span><time>08:50</time></li>
+              </ol>
+              <span class="mb-hfilm-key"><i></i>frames that resolve the vague phrases</span>
+            </figcaption>
           </figure>
         </div>
 
