@@ -2737,3 +2737,27 @@ h3 {
   margin: 12px 0 0;
   font-weight: 600;
 }
+
+/* ------------- hero visual: compact phone + overlapping history strip ------------- */
+.mb-hero-visual .mb-dev {
+  zoom: 0.8;
+}
+.mb-hero-visual .mb-hfilm {
+  position: relative;
+  z-index: 2;
+  margin-top: -14px;
+  padding: 8px 12px 10px;
+}
+.mb-hero-visual .mb-hfilm-row {
+  gap: 8px;
+}
+.mb-hero-visual .mb-hfilm-row li {
+  width: 40px;
+}
+.mb-hero-visual .mb-hfilm-row img {
+  width: 40px;
+  height: 86px;
+}
+.mb-hero-visual .mb-hfilm-row span {
+  font-size: 11px;
+}
