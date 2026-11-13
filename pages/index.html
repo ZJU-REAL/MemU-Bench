@@ -16,11 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link href="style.css?v=20261114n" rel="stylesheet" />
+    <link href="style.css?v=20261114q" rel="stylesheet" />
     <script>
       document.documentElement.classList.add("js");
     </script>
-    <script defer src="script.js?v=20261114n"></script>
+    <script defer src="script.js?v=20261114q"></script>
   </head>
   <body>
     <a class="mb-skip" href="#main">Skip to content</a>
@@ -534,13 +534,13 @@
               <span class="mb-mtag">SR</span>
               <h3>Success Rate</h3>
               <p>Share of the N tasks that end in success; C is the set of successful tasks.</p>
-              <code class="mb-formula">SR = |C| / N</code>
+              <div class="mb-formula"><math class="mb-eq" display="block"><mi>SR</mi><mo>=</mo><mfrac><mrow><mo>|</mo><mi>C</mi><mo>|</mo></mrow><mrow><mi>N</mi></mrow></mfrac></math></div>
             </article>
             <article>
               <span class="mb-mtag">SPL</span>
               <h3>Success weighted by Path Length</h3>
               <p>Success and efficiency together: every task counts, failures score 0, successes are discounted when the agent takes more steps than the human.</p>
-              <code class="mb-formula">SPL = (1/N) · Σ<sub>i</sub> 𝟙[i ∈ C] · h<sub>i</sub> / max(a<sub>i</sub>, h<sub>i</sub>)</code>
+              <div class="mb-formula"><math class="mb-eq" display="block"><mi>SPL</mi><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>N</mi></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msub><mn>𝟙</mn><mrow><mi>i</mi><mo>∈</mo><mi>C</mi></mrow></msub><mo>⋅</mo><mfrac><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow><mrow><mi>max</mi><mo>(</mo><msub><mi>a</mi><mi>i</mi></msub><mo>,</mo><msub><mi>h</mi><mi>i</mi></msub><mo>)</mo></mrow></mfrac></math></div>
             </article>
             <article>
               <span class="mb-mtag">IE</span>
@@ -549,7 +549,7 @@
                 Step efficiency over successful tasks only, in [0, 1]. A low IE means the agent reached the goal by
                 exploring for clues instead of recalling them.
               </p>
-              <code class="mb-formula">IE = (1/|C|) · Σ<sub>i ∈ C</sub> h<sub>i</sub> / max(a<sub>i</sub>, h<sub>i</sub>)</code>
+              <div class="mb-formula"><math class="mb-eq" display="block"><mi>IE</mi><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mo>|</mo><mi>C</mi><mo>|</mo></mrow></mfrac><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>C</mi></mrow></munder><mfrac><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow><mrow><mi>max</mi><mo>(</mo><msub><mi>a</mi><mi>i</mi></msub><mo>,</mo><msub><mi>h</mi><mi>i</mi></msub><mo>)</mo></mrow></mfrac></math></div>
             </article>
           </div>
           <p class="mb-small mb-center">h<sub>i</sub>: human steps on task i · a<sub>i</sub>: agent steps on task i.</p>

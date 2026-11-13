@@ -371,6 +371,8 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let batch = 0;
   function placeWindow(b) {
     batch = b;
+    film.classList.add("mb-has-win");
+    frames.forEach((f, i) => f.classList.toggle("mb-win-in", Math.floor(i / 4) === b));
     const first = frames[b * 4];
     const last = frames[b * 4 + 3];
     if (!visible(film)) return;
@@ -410,6 +412,8 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   /* ---------- reset to the empty state ---------- */
   function reset() {
     qa("[data-step]").forEach((el) => el.classList.remove("is-on"));
+    film.classList.remove("mb-has-win");
+    frames.forEach((f) => f.classList.remove("mb-win-in"));
     clearWire();
     screen("home");
     amb.classList.remove("is-done");

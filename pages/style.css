@@ -2631,3 +2631,84 @@ h3 {
   0% { box-shadow: 0 0 0 0 rgb(18 156 147 / 0.45); }
   100% { box-shadow: 0 0 0 14px rgb(18 156 147 / 0); }
 }
+
+/* retrieval + memory cards share a row: equal heights */
+.mb-p-ret,
+.mb-p-mem {
+  align-self: stretch;
+}
+
+/* sliding window, restyled: no outline box. A soft tint behind the frames in the
+   window, frames outside it fade, and a slim labelled bar underneath. */
+.mb-window {
+  border: 0;
+  border-radius: 12px;
+  background: rgba(17, 150, 139, 0.07);
+}
+.mb-window::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -7px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--teal);
+}
+.mb-window-tag {
+  top: auto;
+  bottom: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 8px;
+  background: var(--surface);
+  color: var(--teal-ink, #0e7a72);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mb-film.mb-has-win .mb-frame {
+  transition: opacity 0.5s ease;
+}
+.mb-film.mb-has-win .mb-frame:not(.mb-win-in) {
+  opacity: 0.38;
+}
+
+/* window label: small pill on the window's top edge (clear of the caption below) */
+.mb-window-tag {
+  top: -9px;
+  bottom: auto;
+  left: auto;
+  right: 12px;
+  transform: none;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+/* metric formulas typeset with MathML */
+.mb-formula {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 74px;
+  overflow-x: auto;
+}
+.mb-eq {
+  margin: 0;
+  font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", "Times New Roman", serif;
+  font-size: 19px;
+  color: var(--ink);
+}
+
+/* formulas sit on a shared baseline at the bottom of each metric card */
+.mb-metrics article {
+  display: flex;
+  flex-direction: column;
+}
+.mb-metrics .mb-formula {
+  margin-top: auto;
+}
