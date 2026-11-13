@@ -12,8 +12,19 @@
 </div>
 
 <p align="center">
+Yizhou Liu<sup>1</sup>, Zhengxi Lu<sup>1</sup>, Fei Tang<sup>1</sup>, Yiwen Qiu<sup>1</sup>, Yong Du<sup>1</sup>, Tongbo Chen<sup>1</sup>, Bofan Chen<sup>1</sup>, Tao Jiang<sup>2</sup>,<br>
+Wenhao Xu<sup>2</sup>, Yunfeng Shu<sup>1</sup>, Wenqi Zhang<sup>1</sup>, Weiming Lu<sup>1</sup>, Jun Xiao<sup>1</sup>, Yueting Zhuang<sup>1</sup>, Yongliang Shen<sup>1,†</sup>
+</p>
+
+<p align="center">
+<sup>1</sup>Zhejiang University, &nbsp; <sup>2</sup>Ant Group<br>
+<sup>†</sup>Corresponding Author
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2611.00191"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2611.00191-b31b1b?style=flat-square"></a>
   <a href="https://zjureal.com/MemU-Bench/"><img alt="Project" src="https://img.shields.io/badge/Project-Page-129C93?style=flat-square"></a>
-  <a href="https://huggingface.co/datasets/vagrt/MemU-Bench-data"><img alt="🤗%20Dataset" src="https://img.shields.io/badge/🤗%20Dataset-MemU--Bench--data-FFD21E?style=flat-square"></a>
+  <a href="https://huggingface.co/datasets/vagrt/MemU-Bench-data"><img alt="Hugging Face Dataset" src="https://img.shields.io/badge/🤗%20Dataset-MemU--Bench--data-FFD21E?style=flat-square"></a>
 </p>
 
 <p align="center">
@@ -26,7 +37,8 @@
   <a href="#metrics">Metrics</a> ·
   <a href="#installation">Installation</a> ·
   <a href="#quick-start">Quick Start</a> ·
-  <a href="#custom-methods">Custom Methods</a>
+  <a href="#custom-methods">Custom Methods</a> ·
+  <a href="#citation">Citation</a>
 </p>
 
 <a id="overview"></a>
@@ -42,6 +54,13 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 ### AppMem Overview
 
 ![Method Overview](imgs/method.png)
+
+<a id="news"></a>
+
+## 📰 News
+
+- **Nov 2026** — Project page released: <https://zjureal.com/MemU-Bench/>.
+- **Oct 2026** — Paper released on [arXiv](https://arxiv.org/abs/2611.00191).
 
 <a id="key-features"></a>
 
@@ -302,6 +321,21 @@ The only requirement is that the output JSON follows this format, since downstre
 ```
 
 As long as the retrieval output format is consistent, the downstream steps (online evaluation, metric calculation) remain unchanged.
+
+<a id="citation"></a>
+
+## 📝 Citation
+
+If you find MemU-Bench useful, please cite:
+
+```bibtex
+@article{liu2026memubench,
+  title   = {MemU-Bench: Benchmarking GUI Agents on Long-Horizon User Interactions},
+  author  = {Liu, Yizhou and Lu, Zhengxi and Tang, Fei and Qiu, Yiwen and Du, Yong and Chen, Tongbo and Chen, Bofan and Jiang, Tao and Xu, Wenhao and Shu, Yunfeng and Zhang, Wenqi and Lu, Weiming and Xiao, Jun and Zhuang, Yueting and Shen, Yongliang},
+  journal = {arXiv preprint arXiv:2611.00191},
+  year    = {2026}
+}
+```
 
 <a id="acknowledgements"></a>
 

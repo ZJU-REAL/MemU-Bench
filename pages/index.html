@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>MemU-Bench | Benchmarking GUI Agents on Long-Horizon User Interactions</title>
     <meta
-      content="MemU-Bench evaluates whether Android GUI agents can resolve ambiguous instructions by recalling the user's past interactions: 118 memory-suite tasks, real user operation logs, and SR / SPL / IE metrics."
+      content="MemU-Bench: 118 vague Android tasks grounded in 29 long-horizon user trajectories, verified against app databases and scored with SR, IE and SPL; plus AppMem, a training-free app-centric memory for GUI agents."
       name="description"
     />
     <meta content="#f3f6fb" name="theme-color" />
@@ -16,11 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link href="style.css?v=20261114b" rel="stylesheet" />
+    <link href="style.css?v=20261114c" rel="stylesheet" />
     <script>
       document.documentElement.classList.add("js");
     </script>
-    <script defer src="script.js?v=20261114b"></script>
+    <script defer src="script.js?v=20261114c"></script>
   </head>
   <body>
     <a class="mb-skip" href="#main">Skip to content</a>
@@ -37,6 +37,7 @@
           <a href="#appmem">AppMem</a>
           <a href="#benchmark">Benchmark</a>
           <a href="#metrics">Metrics</a>
+          <a href="#results">Results</a>
           <a href="#start">Quick start</a>
         </nav>
         <a class="mb-nav-code" href="https://github.com/ZJU-REAL/MemU-Bench">Code</a>
@@ -51,19 +52,31 @@
             <p class="mb-eyebrow">Benchmark · Android GUI agents · user memory</p>
             <h1 class="mb-title"><img alt="MemU-Bench" class="mb-wordmark" height="104" src="assets/title.png" width="520" /></h1>
             <p class="mb-sub">Benchmarking GUI Agents on Long-Horizon User Interactions</p>
+            <p class="mb-authors">
+              Yizhou Liu<sup>1</sup>, Zhengxi Lu<sup>1</sup>, Fei Tang<sup>1</sup>, Yiwen Qiu<sup>1</sup>, Yong Du<sup>1</sup>,
+              Tongbo Chen<sup>1</sup>, Bofan Chen<sup>1</sup>, Tao Jiang<sup>2</sup>, Wenhao Xu<sup>2</sup>, Yunfeng Shu<sup>1</sup>,
+              Wenqi Zhang<sup>1</sup>, Weiming Lu<sup>1</sup>, Jun Xiao<sup>1</sup>, Yueting Zhuang<sup>1</sup>, Yongliang Shen<sup>1,†</sup>
+            </p>
+            <p class="mb-affil">
+              <span><sup>1</sup>Zhejiang University</span><span><sup>2</sup>Ant Group</span><span><sup>†</sup>Corresponding author</span>
+            </p>
             <p class="mb-lede">
               Real users rarely spell everything out. They say <em>“delete the alarm I just set”</em> or
               <em>“save the first call this morning as a contact”</em>. MemU-Bench gives an Android agent the
-              user's past operation logs and asks it to finish such ambiguous tasks, which can only be solved by
-              recalling what the user did before.
+              user's raw interaction history and asks it to finish such vague tasks, which can only be solved by
+              recalling what the user did before. Outcomes are checked against the apps' own databases.
             </p>
             <div class="mb-actions">
-              <a class="mb-btn mb-btn--solid" href="https://github.com/ZJU-REAL/MemU-Bench">
+              <a class="mb-btn mb-btn--solid" href="https://arxiv.org/abs/2611.00191">
+                <svg aria-hidden="true" class="mb-stroke" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z" /><path d="M14 3v5h5M10 13h6M10 17h6" /></svg>
+                Paper
+              </a>
+              <a class="mb-btn" href="https://github.com/ZJU-REAL/MemU-Bench">
                 <svg aria-hidden="true" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
                 Code
               </a>
               <a class="mb-btn" href="https://huggingface.co/datasets/vagrt/MemU-Bench-data">Dataset</a>
-              <span class="mb-soon">Paper coming soon</span>
+              <a class="mb-btn mb-btn--small" href="#cite">BibTeX</a>
             </div>
           </div>
 
@@ -87,15 +100,14 @@
 
         <div class="mb-wrap">
           <dl class="mb-facts">
-            <div><dt>118</dt><dd>memory-suite tasks</dd></div>
-            <div><dt>71</dt><dd>short-history tasks (≤ 400 steps)</dd></div>
-            <div><dt>47</dt><dd>long-history tasks (≥ 700 steps)</dd></div>
-            <div><dt>12</dt><dd>users, each with own app data and logs</dd></div>
-            <div><dt>3</dt><dd>metrics: SR · SPL · IE</dd></div>
+            <div><dt>118</dt><dd>vague tasks</dd></div>
+            <div><dt>29</dt><dd>user trajectories, 100–800 steps each</dd></div>
+            <div><dt>30+</dt><dd>apps, up to 179 app switches in one trajectory</dd></div>
+            <div><dt>71 / 47</dt><dd>Level-1 / Level-2 tasks (&lt; 400 / &gt; 700 history screenshots)</dd></div>
+            <div><dt>3</dt><dd>metrics: SR · IE · SPL</dd></div>
           </dl>
           <p class="mb-facts-note">
-            Runs on an AndroidWorld-based environment (Pixel 6 emulator, API 33). User counts follow
-            <code>user_database/user_0 … user_11</code>; task counts follow the README.
+            Numbers from the paper. The environment builds on AndroidWorld (Pixel 6 emulator, API 33).
           </p>
         </div>
       </section>
@@ -106,10 +118,11 @@
           <p class="mb-kicker">The problem</p>
           <h2>Every instruction leaves a gap that only the user's history can fill</h2>
           <p class="mb-intro">
-            Each task in the memory suite exists in two forms. Agents are evaluated on the <b>ambiguous goal</b>
-            (<code>--eval_setting unclear_goal</code>); the <b>full goal</b> spells out the missing value and serves as the
-            reference wording. Pick a task to see the gap. All text below is taken from the task files and
-            <code>eval_results/human.json</code>.
+            Users omit details they no longer remember, so the missing piece is an objective fact that was visible
+            in their past interactions and is now buried in hundreds of steps of routine phone use. In the code, each
+            task has two forms: agents are evaluated on the <b>vague goal</b> (<code>--eval_setting unclear_goal</code>),
+            while the <b>full goal</b> spells out the missing value. Pick a task to see the gap. All text below is taken
+            from the task files and <code>eval_results/human.json</code>.
           </p>
 
           <div class="mb-explorer" data-mb-explorer>
@@ -117,7 +130,7 @@
             <article class="mb-taskcard" aria-live="polite">
               <div class="mb-taskmeta" data-mb-meta></div>
               <div class="mb-goalrow">
-                <span class="mb-goaltag">ambiguous goal</span>
+                <span class="mb-goaltag">vague goal</span>
                 <p class="mb-goal" data-mb-goal></p>
               </div>
               <div class="mb-gap">
@@ -207,11 +220,11 @@
                   <span class="mb-fapp">clock</span><span class="mb-fact">click</span><span class="mb-ftime">09:31</span>
                 </li>
               </ol>
-              <span class="mb-window" data-step="win" aria-hidden="true"><span class="mb-window-tag" data-mb-wintag>batch 1</span></span>
+              <span class="mb-window" data-step="win" aria-hidden="true"><span class="mb-window-tag" data-mb-wintag>window 1</span></span>
               <div class="mb-film-foot" data-step="buckets">
-                <span class="mb-chip">short history · ≤ 400 steps</span>
-                <span class="mb-chip">long history · ≥ 700 steps</span>
-                <span class="mb-film-note">8 frames shown; real logs are hundreds of steps long</span>
+                <span class="mb-chip">Level-1 · &lt; 400 screenshots</span>
+                <span class="mb-chip">Level-2 · &gt; 700 screenshots</span>
+                <span class="mb-film-note">8 frames and a 4-frame window shown; the paper uses W = 10</span>
               </div>
             </div>
 
@@ -324,7 +337,7 @@
                 </li>
                 <li data-step="r3">
                   <span class="mb-rname">Sufficiency verification</span>
-                  <span class="mb-rbody"><b class="mb-ok">sufficient: yes</b> → stop; otherwise ask again with the missing information</span>
+                  <span class="mb-rbody"><b class="mb-ok">sufficient: yes</b> → execute; otherwise drop the explored apps and infer again</span>
                 </li>
               </ol>
             </div>
@@ -338,7 +351,7 @@
               </div>
               <div class="mb-evalgrid">
                 <div class="mb-checks">
-                  <p class="mb-evlabel">Task validator · calendar events before vs. after</p>
+                  <p class="mb-evlabel">Rule-based check · calendar database before vs. after</p>
                   <ul>
                     <li data-step="c0"><span class="mb-tick">✓</span> title “Picnic”</li>
                     <li data-step="c1"><span class="mb-tick">✓</span> location “Barstow”</li>
@@ -350,7 +363,7 @@
                   <p class="mb-evlabel">Steps against the human reference</p>
                   <div class="mb-bar" data-step="b0"><span>human</span><i style="--w: 16"></i><b>16</b></div>
                   <div class="mb-bar mb-bar--agent" data-step="b1"><span>agent</span><i style="--w: 18"></i><b>18</b></div>
-                  <p class="mb-spl" data-step="spl"><code>min(16 / 18, 1) = 0.89</code> → this task's <b>SPL</b> term; <b>IE</b> also weighs the agent's steps against the human's</p>
+                  <p class="mb-spl" data-step="spl"><code>16 / max(18, 16) = 0.89</code> → this task's term in <b>IE</b> (averaged over successful tasks) and <b>SPL</b> (averaged over all tasks)</p>
                 </div>
               </div>
             </div>
@@ -361,30 +374,31 @@
       <!-- =============================== AppMem =============================== -->
       <section class="mb-section" id="appmem">
         <div class="mb-wrap">
-          <p class="mb-kicker">Baseline method</p>
+          <p class="mb-kicker">Proposed method</p>
           <h2>AppMem: memory written per app, retrieved per app</h2>
           <p class="mb-intro">
-            AppMem is the reference pipeline shipped with the benchmark. It turns raw operation logs into a compact
-            memory once, then, for every task, pulls out only what the task needs. Both stages call the model set
-            in <code>.env</code>, and either can be swapped for your own method.
+            AppMem is a training-free framework that turns the raw history into an app-centric memory bank, keeps
+            interrupted intents together across app switches, and answers a vague instruction by first inferring which
+            apps could hold the missing context. Every step is run by the evaluated model itself; in the code both
+            stages use the model set in <code>.env</code> and either can be swapped for your own method.
           </p>
 
           <div class="mb-two">
             <article class="mb-card">
               <h3><span class="mb-num">1</span> Memory generation</h3>
               <p>
-                The log is read in batches of screenshots, each paired with the actions performed before it. For
-                every batch the model writes one <b>memory event per app</b>.
+                A fixed-size window (W = 10 screenshot–action pairs) slides over the history. Inside each window
+                three stages turn the raw trace into memory entries, one per app:
               </p>
               <ul class="mb-ops">
-                <li><b>Current event summarization</b> — describe what the user did, keeping concrete items, comparisons and changes of mind.</li>
-                <li><b>Latest memory fetching</b> — look up the newest entry for the same app.</li>
-                <li><b>Ongoing intent continuation</b> — if that entry is still <i>ongoing</i>, merge the new event into it; if it is <i>finished</i>, open a new entry.</li>
+                <li><b>Current event summarization</b> — summarize the window into entries ⟨app, event, details, t<sub>start</sub>, t<sub>end</sub>, status⟩, where details keep on-screen facts such as prices and status is <i>ongoing</i> or <i>finished</i>.</li>
+                <li><b>Latest memory fetching</b> — for each new entry, find the most recent entry of the same app in the memory bank.</li>
+                <li><b>Ongoing intent continuation</b> — if that entry is still <i>ongoing</i>, merge the two; if it is <i>finished</i> or absent, append the new entry. Each app's ongoing activity stays in one entry and finished events are never overwritten.</li>
               </ul>
               <pre class="mb-schema"><code><span>App:</span>        osmand
 <span>Event:</span>      searched the map for Barstow, saved a marker
 <span>Details:</span>    Barstow            <em># hard data: numbers, names, sizes</em>
-<span>State:</span>      finished | ongoing
+<span>State:</span>      ongoing | finished
 <span>Start Time:</span> …   <span>End Time:</span> …</code></pre>
               <p class="mb-small">Field layout from <code>memory_generation/memory/base.py</code>; the values are illustrative.</p>
             </article>
@@ -392,25 +406,25 @@
             <article class="mb-card">
               <h3><span class="mb-num">2</span> App-guided retrieval</h3>
               <p>
-                Instead of searching the whole history, retrieval first asks <b>which apps</b> could hold the missing
-                information, then reads only their entries. It repeats for up to three rounds.
+                Instead of searching the whole history, retrieval first infers <b>which apps</b> could hold the missing
+                context and reads only their entries, in up to K = 3 rounds.
               </p>
               <ol class="mb-loop">
-                <li><b>Application inference</b><span>pick candidate apps from their one-line descriptions</span></li>
-                <li><b>Memory retrieval</b><span>keep the memory entries of those apps</span></li>
-                <li><b>Information filtering</b><span>extract a concise note that helps the goal</span></li>
-                <li><b>Sufficiency verification</b><span>is anything the agent cannot find through the UI still missing? If so, go again with the remaining apps</span></li>
+                <li><b>Application inference</b><span>from the vague instruction, infer a subset A* of the apps that appear in memory</span></li>
+                <li><b>Memory retrieval</b><span>keep only the entries of A*, an app-specific sub-bank</span></li>
+                <li><b>Information filtering</b><span>distill those entries into the key information κ for the task</span></li>
+                <li><b>Sufficiency verification</b><span>if κ suffices, execution begins; otherwise drop the explored apps from the candidates and infer again</span></li>
               </ol>
               <p>
-                The note is saved as <code>user_history</code> next to the goal and handed to the agent at every step
-                as <i>“generated information about the user's previous operations”</i>.
+                In the code, κ is saved as <code>user_history</code> next to the goal and given to the agent at every
+                step as <i>“generated information about the user's previous operations”</i>.
               </p>
             </article>
           </div>
 
           <figure class="mb-figure">
             <img alt="AppMem overview: a sliding window over the frame sequence produces memory through current event summarization, latest memory fetching and ongoing intent continuation; app-guided retrieval runs application inference, memory retrieval, information filtering and sufficiency verification before the GUI agent executes on the emulator." height="424" loading="lazy" src="assets/method.jpg" width="880" />
-            <figcaption>AppMem overview (figure from the repository).</figcaption>
+            <figcaption>AppMem overview (Figure 4 of the paper).</figcaption>
           </figure>
         </div>
       </section>
@@ -419,28 +433,34 @@
       <section class="mb-section" id="benchmark">
         <div class="mb-wrap">
           <p class="mb-kicker">Benchmark design</p>
-          <h2>Real user logs, restored phones, checkable outcomes</h2>
+          <h2>Noisy long histories, restored phones, database-checked outcomes</h2>
           <div class="mb-three">
             <div class="mb-mini">
-              <h3>User history</h3>
-              <p>Operation logs recorded from users: screenshots plus the actions between them. Tasks are split by how long that history is.</p>
-              <div class="mb-split" role="img" aria-label="71 short tasks and 47 long tasks">
-                <span style="--n: 71">short · 71</span><span style="--n: 47">long · 47</span>
+              <h3>Long, noisy histories</h3>
+              <p>
+                Operators followed intent-level sketches on an emulator, using it like a real phone: accidental touches,
+                redundant app switches, sessions spread over hours. Screenshots and actions were logged every 0.3 s and
+                identical frames removed.
+              </p>
+              <div class="mb-split" role="img" aria-label="71 Level-1 tasks and 47 Level-2 tasks">
+                <span style="--n: 71">Level-1 · 71</span><span style="--n: 47">Level-2 · 47</span>
               </div>
-              <p class="mb-small">short ≤ 400 history steps · long ≥ 700 history steps</p>
+              <p class="mb-small">Level-1: &lt; 400 history screenshots · Level-2: &gt; 700</p>
             </div>
             <div class="mb-mini">
               <h3>Restored device</h3>
               <p>
-                Each user's app data is restored into a Pixel 6 emulator (API 33) and saved as a snapshot such as
-                <code>snapshot_0_short</code>, so every task starts from that user's real phone state.
+                After each trajectory the emulator state is frozen: system time recorded and every involved app's
+                database pulled. Restoring that snapshot (e.g. <code>snapshot_0_short</code>) reproduces the exact phone
+                the operator left behind.
               </p>
             </div>
             <div class="mb-mini">
               <h3>Checked results</h3>
               <p>
-                Each task carries its own validator that inspects the resulting app state (databases, files or UI);
-                a judge model is configured for open-ended checks. A human run of every task gives the reference step counts.
+                A cascade of checks: rule-based verification of the app's database records; an LLM judge only for
+                free-text fields such as message bodies; a VLM judge on screenshots for the few tasks whose database
+                is inaccessible. Human step counts give the efficiency reference.
               </p>
             </div>
           </div>
@@ -448,14 +468,24 @@
           <div class="mb-apps">
             <div class="mb-apps-head">
               <h3>Where the tasks are carried out</h3>
-              <p class="mb-small">Tasks per target app, counted from <code>app_name</code> in <code>task_evals/fixed_tasks/</code> (118 in total).</p>
+              <p class="mb-small">Tasks per target app (Table 7 of the paper; the same counts as <code>app_name</code> in <code>task_evals/fixed_tasks/</code>).</p>
             </div>
             <ul class="mb-appbars" data-mb-appbars></ul>
+            <div class="mb-cats">
+              <p class="mb-small">By app category (Figure 3 of the paper)</p>
+              <div class="mb-catbar" role="img" aria-label="Productivity and Information 35.6%, System and Utility 30.5%, Entertainment and Lifestyle 13.6%, Food and Delivery 12.7%, E-commerce and Shopping 7.6%">
+                <span style="--n: 35.6">Productivity &amp; Information <b>35.6%</b></span>
+                <span style="--n: 30.5">System &amp; Utility <b>30.5%</b></span>
+                <span style="--n: 13.6">Entertainment &amp; Lifestyle <b>13.6%</b></span>
+                <span style="--n: 12.7">Food &amp; Delivery <b>12.7%</b></span>
+                <span style="--n: 7.6">E-commerce &amp; Shopping <b>7.6%</b></span>
+              </div>
+            </div>
           </div>
 
           <figure class="mb-figure">
             <img alt="MemU-Bench overview: (a) benchmark architecture with apps, vague tasks, user trajectories and user databases; (b) evaluation pipeline where memory generated from trajectories is retrieved for the GUI agent, which controls the emulator, followed by rule-based and LLM-as-judge evaluation." height="483" loading="lazy" src="assets/benchmark.jpg" width="880" />
-            <figcaption>Benchmark architecture and evaluation pipeline (figure from the repository).</figcaption>
+            <figcaption>Benchmark architecture and evaluation pipeline (Figure 2 of the paper).</figcaption>
           </figure>
         </div>
       </section>
@@ -466,33 +496,125 @@
           <p class="mb-kicker">Metrics</p>
           <h2>Did it finish, and how many taps did it take?</h2>
           <p class="mb-intro">
-            Every run is compared task-by-task with <code>eval_results/human.json</code>, a human run of all 118 tasks
-            (2 to 19 steps each). <code>eval_metrics.py</code> also reports SR and SPL separately for short and long
-            history.
+            Success alone is not evidence of memory: an agent can finish a vague task by searching app after app.
+            IE and SPL therefore compare the agent's steps with a human's on the same task
+            (<code>eval_results/human.json</code>, 2 to 19 steps per task). <code>eval_metrics.py</code> also reports SR
+            and SPL separately for Level-1 and Level-2.
           </p>
           <div class="mb-metrics">
             <article>
               <span class="mb-mtag">SR</span>
               <h3>Success Rate</h3>
-              <p>Share of tasks whose validator reports success.</p>
-              <code class="mb-formula">SR = (1/N) · Σ S<sub>i</sub></code>
+              <p>Share of the N tasks that end in success; C is the set of successful tasks.</p>
+              <code class="mb-formula">SR = |C| / N</code>
             </article>
             <article>
               <span class="mb-mtag">SPL</span>
               <h3>Success weighted by Path Length</h3>
-              <p>Success, discounted when the agent needs more steps than the human did. Failed tasks score 0.</p>
-              <code class="mb-formula">SPL = (1/N) · Σ S<sub>i</sub> · min(h<sub>i</sub> / a<sub>i</sub>, 1)</code>
+              <p>Success and efficiency together: every task counts, failures score 0, successes are discounted when the agent takes more steps than the human.</p>
+              <code class="mb-formula">SPL = (1/N) · Σ<sub>i</sub> 𝟙[i ∈ C] · h<sub>i</sub> / max(a<sub>i</sub>, h<sub>i</sub>)</code>
             </article>
             <article>
               <span class="mb-mtag">IE</span>
               <h3>Interaction Efficiency</h3>
               <p>
-                How efficiently the agent interacts with the environment. The metric script reports step efficiency
-                over successful episodes and the step overrun (a<sub>i</sub> / h<sub>i</sub>) over failed ones.
+                Step efficiency over successful tasks only, in [0, 1]. A low IE means the agent reached the goal by
+                exploring for clues instead of recalling them.
+              </p>
+              <code class="mb-formula">IE = (1/|C|) · Σ<sub>i ∈ C</sub> h<sub>i</sub> / max(a<sub>i</sub>, h<sub>i</sub>)</code>
+            </article>
+          </div>
+          <p class="mb-small mb-center">h<sub>i</sub>: human steps on task i · a<sub>i</sub>: agent steps on task i.</p>
+        </div>
+      </section>
+
+      <!-- ============================== Results ============================== -->
+      <section class="mb-section" id="results">
+        <div class="mb-wrap">
+          <p class="mb-kicker">Results</p>
+          <h2>Without history, agents wander; with AppMem, they remember</h2>
+          <p class="mb-intro">
+            Nine backbones, each run three ways: <b>Vanilla</b> (no history), <b>w/ Summary</b> (the same window
+            iteratively summarizes the history, and key information is retrieved from the summary) and
+            <b>w/ AppMem</b>. The evaluated model performs all memory and summary operations itself; W = 10, K = 3,
+            temperature 0, one complete run per model.
+          </p>
+
+          <div class="mb-headline">
+            <div><b>16.4%</b><span>best SPL without history (Gemini-3.1-Pro)</span></div>
+            <div><b>&lt; 5%</b><span>SPL of every end-to-end GUI agent without history</span></div>
+            <div><b>15.7 → 66.9</b><span>GPT-5.5 SPL with AppMem (+51.2)</span></div>
+            <div><b>+9.3</b><span>SPL over the Summary baseline (GPT-5.5)</span></div>
+          </div>
+
+          <div class="mb-results" data-mb-results>
+            <div class="mb-res-controls">
+              <div class="mb-seg" role="group" aria-label="Metric">
+                <button type="button" data-metric="spl" aria-pressed="true">SPL</button>
+                <button type="button" data-metric="sr" aria-pressed="false">SR</button>
+                <button type="button" data-metric="ie" aria-pressed="false">IE</button>
+                <button type="button" data-metric="gap" aria-pressed="false">L1 − L2 gap</button>
+                <button type="button" data-metric="full" aria-pressed="false">Full table</button>
+              </div>
+              <p class="mb-res-note" data-mb-resnote></p>
+            </div>
+            <div class="mb-tablewrap">
+              <table class="mb-table" data-mb-table></table>
+            </div>
+            <p class="mb-small">
+              Table 2 of the paper. SR and SPL in %, IE in [0, 1]; higher is better, except for the L1 − L2 gap
+              (δ = SPL<sub>L1</sub> − SPL<sub>L2</sub>, computed from the table; closer to 0 means more robust to long
+              histories). Bold marks the best value within each backbone; differences are against Vanilla.
+            </p>
+          </div>
+
+          <div class="mb-findings">
+            <article class="mb-card">
+              <h3>Which part of AppMem matters</h3>
+              <p class="mb-small">Ablation on Qwen3.5-397B-A17B (Table 3). MS: memory size; TE: retrieval tokens per successful task; CT: retrieved tokens added at execution. Lower is better for MS, TE, CT.</p>
+              <div class="mb-tablewrap">
+                <table class="mb-table mb-table--small">
+                  <thead><tr><th scope="col">Setting</th><th scope="col">SPL</th><th scope="col">MS</th><th scope="col">TE</th><th scope="col">CT</th></tr></thead>
+                  <tbody>
+                    <tr class="is-ours"><th scope="row">Full AppMem</th><td>47.1</td><td><b>8.8K</b></td><td>6.1K</td><td>0.10K</td></tr>
+                    <tr><th scope="row">w/o intent continuation</th><td>42.4</td><td>15.3K</td><td>10.7K</td><td>0.11K</td></tr>
+                    <tr><th scope="row">w/o app inference</th><td><b>48.5</b></td><td><b>8.8K</b></td><td>17.8K</td><td>0.15K</td></tr>
+                    <tr><th scope="row">w/o info filtering</th><td>41.8</td><td><b>8.8K</b></td><td>9.7K</td><td>2.89K</td></tr>
+                    <tr><th scope="row">w/o sufficiency check</th><td>45.3</td><td><b>8.8K</b></td><td><b>4.9K</b></td><td><b>0.09K</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Intent continuation keeps memory complete and compact (SPL −4.7 and memory 8.8K → 15.3K tokens without it);
+                information filtering keeps the agent's context small; app inference mainly cuts retrieval cost (17.8K → 6.1K
+                tokens) at nearly the same SPL.
+              </p>
+            </article>
+            <article class="mb-card">
+              <h3>App-guided retrieval vs. alternatives</h3>
+              <div class="mb-tablewrap">
+                <table class="mb-table mb-table--small">
+                  <thead><tr><th scope="col">Qwen3.5-397B-A17B</th><th scope="col">IE</th><th scope="col">SR</th><th scope="col">SPL</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">w/ Inquiry <span class="mb-muted">(asks the user)</span></th><td>0.62</td><td>39.0</td><td>24.1</td></tr>
+                    <tr><th scope="row">AppMem, dense RAG retrieval</th><td>0.87</td><td>43.2</td><td>37.5</td></tr>
+                    <tr class="is-ours"><th scope="row">AppMem, app-guided</th><td><b>0.90</b></td><td><b>52.5</b></td><td><b>47.1</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Replacing app-guided retrieval with a bge-m3 retriever over the top-3 entries costs 9.3 SR and 9.6 SPL
+                (Table 4); on GPT-5.5 it drops from 66.9 to 50.5 SPL. Asking the user for coarse clues instead of
+                using history lifts SR, but extra steps keep IE at 0.62 (Table 6). Retrieval is also cheaper than with a
+                summary: 8.5K → 4.2K tokens per successful task for Gemini-3.1-Pro, 12.0K → 9.9K for Claude-Opus-4.8 (Table 5).
               </p>
             </article>
           </div>
-          <p class="mb-small mb-center">S<sub>i</sub>: success on task i · h<sub>i</sub>: human reference steps · a<sub>i</sub>: agent steps.</p>
+          <p class="mb-intro">
+            The bottleneck is memory, not execution: given precise instructions, MAI-UI-8B reaches 61.9% SR, a 55.1-point gap
+            over its 6.8% with summarized history. In a manual error analysis of the Summary baseline, 57.6% of tasks fail with
+            the key information missing, against 6.8% that fail although it was retrieved.
+          </p>
         </div>
       </section>
 
@@ -578,21 +700,24 @@ python eval/eval_metrics.py \
       <!-- ============================== Citation ============================== -->
       <section class="mb-section mb-section--last" id="cite">
         <div class="mb-wrap">
-          <div class="mb-cite">
-            <span class="mb-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-            <div>
-              <h2>Citation</h2>
-              <p>Paper coming soon. Until then, please link to the <a href="https://github.com/ZJU-REAL/MemU-Bench">GitHub repository</a>.</p>
-            </div>
+          <div class="mb-cite-head">
+            <h2>BibTeX</h2>
+            <button class="mb-copy" data-copy="mb-bib" type="button">Copy BibTeX</button>
           </div>
+          <pre class="mb-bib" id="mb-bib"><code>@article{liu2026memubench,
+  title   = {MemU-Bench: Benchmarking GUI Agents on Long-Horizon User Interactions},
+  author  = {Liu, Yizhou and Lu, Zhengxi and Tang, Fei and Qiu, Yiwen and Du, Yong and Chen, Tongbo and Chen, Bofan and Jiang, Tao and Xu, Wenhao and Shu, Yunfeng and Zhang, Wenqi and Lu, Weiming and Xiao, Jun and Zhuang, Yueting and Shen, Yongliang},
+  journal = {arXiv preprint arXiv:2611.00191},
+  year    = {2026}
+}</code></pre>
         </div>
       </section>
     </main>
 
     <footer class="mb-footer">
       <div class="mb-wrap">
-        <span>MemU-Bench · Apache-2.0</span>
-        <span>Built on <a href="https://github.com/google-research/android_world">AndroidWorld</a></span>
+        <span>Zhejiang University &amp; Ant Group · Code released under Apache-2.0</span>
+        <span><a href="https://github.com/ZJU-REAL/MemU-Bench">GitHub</a> · <a href="https://arxiv.org/abs/2611.00191">arXiv</a> · built on <a href="https://github.com/google-research/android_world">AndroidWorld</a></span>
       </div>
     </footer>
   </body>
