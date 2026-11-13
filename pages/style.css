@@ -2579,22 +2579,46 @@ h3 {
   font-size: 11px;
 }
 
-/* hero visual, round 2: smaller phone, strip tucked over its lower edge */
-.mb-hero-visual .mb-dev {
-  zoom: 0.68;
-}
-.mb-hero-visual .mb-hfilm {
-  margin-top: -64px;
-  padding: 7px 10px 8px;
-}
-.mb-hero-visual .mb-hfilm-row li {
-  width: 34px;
-}
-.mb-hero-visual .mb-hfilm-row img {
-  width: 34px;
-  height: 73px;
-}
-.mb-hero-visual .mb-hfilm-row span,
-.mb-hero-visual .mb-hfilm-row time {
-  font-size: 10px;
+/* hero visual, round 3: phone + upright history card side by side (nothing overlaps) */
+@media (min-width: 981px) {
+  .mb-hero-visual {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .mb-hero-visual .mb-dev {
+    zoom: 0.8;
+    flex: none;
+  }
+  .mb-hero-visual .mb-hfilm {
+    margin: 0;
+    padding: 12px 12px 10px;
+    width: 146px;
+    flex: none;
+  }
+  .mb-hero-visual .mb-hfilm-head {
+    display: block;
+    line-height: 1.3;
+  }
+  .mb-hero-visual .mb-hfilm-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 12px;
+    padding: 10px 0 8px;
+    background: none;
+    border-top: 1px dashed var(--line-2);
+    border-bottom: 1px dashed var(--line-2);
+    margin: 8px 0;
+  }
+  .mb-hero-visual .mb-hfilm-row li {
+    width: auto;
+  }
+  .mb-hero-visual .mb-hfilm-row img {
+    width: 48px;
+    height: 88px;
+  }
+  .mb-hero-visual .mb-hfilm-key {
+    line-height: 1.35;
+  }
 }
