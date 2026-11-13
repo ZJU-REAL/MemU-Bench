@@ -136,20 +136,6 @@ h3 {
   text-decoration: none;
 }
 
-.mb-brand-mark {
-  display: inline-flex;
-  gap: 3px;
-}
-.mb-brand-mark i {
-  width: 8px;
-  height: 14px;
-  border-radius: 3px;
-  border: 1.6px solid var(--violet);
-}
-.mb-brand-mark i:last-child {
-  border-color: var(--teal);
-  background: var(--teal-soft);
-}
 
 .mb-nav nav {
   display: flex;
@@ -2455,4 +2441,10 @@ h3 {
   width: min(100%, 520px);
   height: auto;
   margin: 0 0 14px;
+}
+
+.mb-brand-img {
+  display: block;
+  width: auto;
+  height: 26px;
 }
