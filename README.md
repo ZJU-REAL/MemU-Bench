@@ -1,14 +1,39 @@
-# MemU-Bench: Benchmarking GUI Agents on Long-Horizon User Interactions
+<div align="center">
+
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.png">
+    <img src="assets/title.png" alt="MemU-Bench" width="400">
+  </picture>
+</h1>
+
+### Benchmarking GUI Agents on Long-Horizon User Interactions
+
+</div>
+
+<p align="center">
+  <a href="https://zjureal.com/MemU-Bench/"><img alt="Project" src="https://img.shields.io/badge/Project-Page-129C93?style=flat-square"></a>
+  <a href="https://huggingface.co/datasets/vagrt/MemU-Bench-data"><img alt="🤗%20Dataset" src="https://img.shields.io/badge/🤗%20Dataset-MemU--Bench--data-FFD21E?style=flat-square"></a>
+</p>
+
+<p align="center">
+  <img src="assets/hero.jpg" alt="MemU-Bench: a phone-using robot receives an ambiguous request, walks back along a long film strip of the user's past phone screens with a magnifier, finds the matching moment, and completes the task" width="100%">
+</p>
+
+<p align="center">
+  <a href="#overview">Overview</a> ·
+  <a href="#key-features">Key Features</a> ·
+  <a href="#metrics">Metrics</a> ·
+  <a href="#installation">Installation</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#custom-methods">Custom Methods</a>
+</p>
+
+<a id="overview"></a>
+
+## 🔎 Overview
 
 MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leverage user history (memory) to complete ambiguous tasks on Android devices. MemU-Bench introduces a **memory suite** where task instructions contain ambiguous references that can only be resolved by recalling the user's past interactions.
-
-## Key Features
-
-- 🧠 **Memory-driven tasks**: Tasks are intentionally ambiguous — agents must retrieve relevant information from user history to succeed
-- 📱 **User interaction trajectories**: Includes real user operation logs (screenshots + actions) as history context, with 118 tasks divided into **short** (71 tasks, ≤400 steps) and **long** (47 tasks, ≥700 steps) based on history length
-- 📊 **Triple evaluation metrics**: **SR** (Success Rate), **SPL** (Success weighted by Path Length), and **IE** (Interaction Efficiency)
-
-## Overview
 
 ### MemU-Bench Overview
 
@@ -18,7 +43,17 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 
 ![Method Overview](imgs/method.png)
 
-## Metrics
+<a id="key-features"></a>
+
+## ✨ Key Features
+
+- 🧠 **Memory-driven tasks**: Tasks are intentionally ambiguous — agents must retrieve relevant information from user history to succeed
+- 📱 **User interaction trajectories**: Includes real user operation logs (screenshots + actions) as history context, with 118 tasks divided into **short** (71 tasks, ≤400 steps) and **long** (47 tasks, ≥700 steps) based on history length
+- 📊 **Triple evaluation metrics**: **SR** (Success Rate), **SPL** (Success weighted by Path Length), and **IE** (Interaction Efficiency)
+
+<a id="metrics"></a>
+
+## 📏 Metrics
 
 | Metric | Description |
 |--------|-------------|
@@ -26,7 +61,9 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 | **SPL** | Success weighted by Path Length — penalizes inefficient solutions |
 | **IE** | Interaction Efficiency — measures how efficiently the agent interacts with the environment |
 
-## Project Layout
+<a id="project-layout"></a>
+
+## 🗂️ Project Layout
 
 ```
 ├── batch_restore_and_snapshot.py   # Emulator initialization & snapshot creation
@@ -53,7 +90,9 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 │   └── env/                        # Android environment & ADB utilities
 ```
 
-## Installation
+<a id="installation"></a>
+
+## 📦 Installation
 
 1. Set up the Android Emulator
 
@@ -80,7 +119,9 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
    brew install ffmpeg
    ```
 
-## Quick Start (AppMem)
+<a id="quick-start"></a>
+
+## 🚀 Quick Start (AppMem)
 
 The full evaluation pipeline consists of the following steps:
 
@@ -213,7 +254,9 @@ python eval/eval_metrics.py \
     --output ./metric_results/memory.json
 ```
 
-## Custom Methods
+<a id="custom-methods"></a>
+
+## 🧩 Custom Methods
 
 MemU-Bench is designed to be modular — you can plug in your own memory processing and retrieval methods while reusing the rest of the benchmark pipeline.
 
@@ -260,6 +303,8 @@ The only requirement is that the output JSON follows this format, since downstre
 
 As long as the retrieval output format is consistent, the downstream steps (online evaluation, metric calculation) remain unchanged.
 
-## Acknowledgements
+<a id="acknowledgements"></a>
+
+## 🙏 Acknowledgements
 
 This codebase is built upon [AndroidWorld](https://github.com/google-research/android_world). For emulator configuration details, see the AndroidWorld documentation.

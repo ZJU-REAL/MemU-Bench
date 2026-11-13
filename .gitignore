@@ -57,3 +57,13 @@
 *.py[cod]
 __pycache__/
 .DS_Store
+
+# Project page (GitHub Pages) and its deploy workflow.
+!/pages/
+!/pages/**
+!/.github/
+!/.github/**
+
+# README hero and title images.
+!/assets/
+!/assets/**

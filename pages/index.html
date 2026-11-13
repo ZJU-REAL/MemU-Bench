@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>MemU-Bench | Benchmarking GUI Agents on Long-Horizon User Interactions</title>
+    <meta
+      content="MemU-Bench evaluates whether Android GUI agents can resolve ambiguous instructions by recalling the user's past interactions: 118 memory-suite tasks, real user operation logs, and SR / SPL / IE metrics."
+      name="description"
+    />
+    <meta content="#f3f6fb" name="theme-color" />
+    <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css?v=20261114b" rel="stylesheet" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <script defer src="script.js?v=20261114b"></script>
+  </head>
+  <body>
+    <a class="mb-skip" href="#main">Skip to content</a>
+
+    <header class="mb-nav">
+      <div class="mb-nav-in">
+        <a class="mb-brand" href="#top" aria-label="MemU-Bench home">
+          <span class="mb-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>MemU-Bench</span>
+        </a>
+        <nav aria-label="Sections">
+          <a href="#tasks">Tasks</a>
+          <a href="#method">How it works</a>
+          <a href="#appmem">AppMem</a>
+          <a href="#benchmark">Benchmark</a>
+          <a href="#metrics">Metrics</a>
+          <a href="#start">Quick start</a>
+        </nav>
+        <a class="mb-nav-code" href="https://github.com/ZJU-REAL/MemU-Bench">Code</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================================ Hero ================================ -->
+      <section class="mb-hero" id="top">
+        <div class="mb-wrap mb-hero-grid">
+          <div class="mb-hero-text">
+            <p class="mb-eyebrow">Benchmark · Android GUI agents · user memory</p>
+            <h1 class="mb-title"><img alt="MemU-Bench" class="mb-wordmark" height="104" src="assets/title.png" width="520" /></h1>
+            <p class="mb-sub">Benchmarking GUI Agents on Long-Horizon User Interactions</p>
+            <p class="mb-lede">
+              Real users rarely spell everything out. They say <em>“delete the alarm I just set”</em> or
+              <em>“save the first call this morning as a contact”</em>. MemU-Bench gives an Android agent the
+              user's past operation logs and asks it to finish such ambiguous tasks, which can only be solved by
+              recalling what the user did before.
+            </p>
+            <div class="mb-actions">
+              <a class="mb-btn mb-btn--solid" href="https://github.com/ZJU-REAL/MemU-Bench">
+                <svg aria-hidden="true" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                Code
+              </a>
+              <a class="mb-btn" href="https://huggingface.co/datasets/vagrt/MemU-Bench-data">Dataset</a>
+              <span class="mb-soon">Paper coming soon</span>
+            </div>
+          </div>
+
+          <figure class="mb-hero-visual" aria-label="Examples of ambiguous instructions from the task suite">
+            <div class="mb-phone mb-phone--hero">
+              <div class="mb-phone-screen">
+                <div class="mb-status"><span>9:41</span><span class="mb-status-dots"><i></i><i></i><i></i></span></div>
+                <p class="mb-hero-label">Instructions from the task suite</p>
+                <div class="mb-bubble">Please delete the alarm <mark>I just set</mark>.</div>
+                <div class="mb-bubble">Save <mark>the first call this morning</mark> as a contact named Courier in contacts app.</div>
+                <div class="mb-bubble">Play <mark>my favorite song</mark> in retro music app.</div>
+                <div class="mb-bubble mb-bubble--q">Which alarm? Which call? Which song?</div>
+              </div>
+            </div>
+            <div class="mb-strip" aria-hidden="true">
+              <span class="mb-strip-label">user history</span>
+              <span class="mb-strip-frames"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </figure>
+        </div>
+
+        <div class="mb-wrap">
+          <dl class="mb-facts">
+            <div><dt>118</dt><dd>memory-suite tasks</dd></div>
+            <div><dt>71</dt><dd>short-history tasks (≤ 400 steps)</dd></div>
+            <div><dt>47</dt><dd>long-history tasks (≥ 700 steps)</dd></div>
+            <div><dt>12</dt><dd>users, each with own app data and logs</dd></div>
+            <div><dt>3</dt><dd>metrics: SR · SPL · IE</dd></div>
+          </dl>
+          <p class="mb-facts-note">
+            Runs on an AndroidWorld-based environment (Pixel 6 emulator, API 33). User counts follow
+            <code>user_database/user_0 … user_11</code>; task counts follow the README.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================ Task explorer ============================ -->
+      <section class="mb-section" id="tasks">
+        <div class="mb-wrap">
+          <p class="mb-kicker">The problem</p>
+          <h2>Every instruction leaves a gap that only the user's history can fill</h2>
+          <p class="mb-intro">
+            Each task in the memory suite exists in two forms. Agents are evaluated on the <b>ambiguous goal</b>
+            (<code>--eval_setting unclear_goal</code>); the <b>full goal</b> spells out the missing value and serves as the
+            reference wording. Pick a task to see the gap. All text below is taken from the task files and
+            <code>eval_results/human.json</code>.
+          </p>
+
+          <div class="mb-explorer" data-mb-explorer>
+            <div class="mb-tasklist" role="tablist" aria-label="Example tasks"></div>
+            <article class="mb-taskcard" aria-live="polite">
+              <div class="mb-taskmeta" data-mb-meta></div>
+              <div class="mb-goalrow">
+                <span class="mb-goaltag">ambiguous goal</span>
+                <p class="mb-goal" data-mb-goal></p>
+              </div>
+              <div class="mb-gap">
+                <span class="mb-gap-line" aria-hidden="true"></span>
+                <span class="mb-gap-text" data-mb-hint></span>
+              </div>
+              <div class="mb-goalrow">
+                <span class="mb-goaltag mb-goaltag--full">full goal</span>
+                <p class="mb-goal mb-goal--full" data-mb-full></p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================== Animated method ========================== -->
+      <section class="mb-section mb-section--figure" id="method">
+        <div class="mb-wrap">
+          <p class="mb-kicker">How a task runs</p>
+          <h2>From an ambiguous request to a scored episode</h2>
+          <p class="mb-intro">
+            One task from the suite, played step by step with the AppMem pipeline. The instruction is the real
+            ambiguous goal of <code>User0Short_CalendarAddEvent</code> and the human step count comes from
+            <code>human.json</code>; the screenshots, memory entries, retrieved text and the agent's 18 steps are
+            <b>illustrative</b>.
+          </p>
+        </div>
+
+        <div class="mb-fig" data-mb-fig>
+          <div class="mb-fig-controls">
+            <button class="mb-play" type="button" aria-label="Pause animation" data-mb-play>
+              <svg class="mb-i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3" width="3" height="10" rx="1"/><rect x="9.5" y="3" width="3" height="10" rx="1"/></svg>
+              <svg class="mb-i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6c0 .5.5.8.9.5l7-4.8a.6.6 0 0 0 0-1L5.9 2.7c-.4-.3-.9 0-.9.5Z"/></svg>
+            </button>
+            <div class="mb-tabs" role="tablist" aria-label="Phases">
+              <button role="tab" type="button" data-phase="0"><span>1</span> Instruction<i></i></button>
+              <button role="tab" type="button" data-phase="1"><span>2</span> User history<i></i></button>
+              <button role="tab" type="button" data-phase="2"><span>3</span> Memory<i></i></button>
+              <button role="tab" type="button" data-phase="3"><span>4</span> Retrieval<i></i></button>
+              <button role="tab" type="button" data-phase="4"><span>5</span> Execute<i></i></button>
+              <button role="tab" type="button" data-phase="5"><span>6</span> Evaluate<i></i></button>
+            </div>
+          </div>
+          <p class="mb-caption" data-mb-caption aria-live="polite"></p>
+
+          <div class="mb-stage" data-mb-stage>
+            <svg class="mb-wires" data-mb-wires aria-hidden="true"></svg>
+
+            <!-- Filmstrip: user operation log -->
+            <div class="mb-panel mb-p-film" data-step="film" data-show="1 2">
+              <div class="mb-panel-head">
+                <span class="mb-dot mb-dot--violet"></span>
+                <b>User history</b>
+                <span class="mb-mono">user_history/user_0/short/processed.jsonl · screenshots + actions</span>
+              </div>
+              <ol class="mb-film" data-mb-film>
+                <li class="mb-frame" data-step="fr" style="--i: 0">
+                  <div class="mb-thumb mb-t-calls"><b></b><i class="mb-hl"></i><i></i><i></i><i></i></div>
+                  <span class="mb-fapp">phone</span><span class="mb-fact">click</span><span class="mb-ftime">08:47</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 1">
+                  <div class="mb-thumb mb-t-home"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <span class="mb-fapp">home</span><span class="mb-fact">swipe</span><span class="mb-ftime">09:20</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 2">
+                  <div class="mb-thumb mb-t-map"><b>Barstow</b><i></i><i></i></div>
+                  <span class="mb-fapp">osmand</span><span class="mb-fact">type</span><span class="mb-ftime">09:21</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 3">
+                  <div class="mb-thumb mb-t-map mb-t-map--result"><b>Barstow</b><i></i><i></i><em></em></div>
+                  <span class="mb-fapp">osmand</span><span class="mb-fact">click</span><span class="mb-ftime">09:22</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 4">
+                  <div class="mb-thumb mb-t-map mb-t-map--pin"><b>Barstow</b><i></i><i></i><em></em><s></s></div>
+                  <span class="mb-fapp">osmand</span><span class="mb-fact">click</span><span class="mb-ftime">09:22</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 5">
+                  <div class="mb-thumb mb-t-clock"><b>8:30</b><b>9:10</b></div>
+                  <span class="mb-fapp">clock</span><span class="mb-fact">click</span><span class="mb-ftime">09:30</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 6">
+                  <div class="mb-thumb mb-t-dial"><b>14:00</b><i></i></div>
+                  <span class="mb-fapp">clock</span><span class="mb-fact">click</span><span class="mb-ftime">09:31</span>
+                </li>
+                <li class="mb-frame" data-step="fr" style="--i: 7">
+                  <div class="mb-thumb mb-t-clock"><b>8:30</b><b>9:10</b><b class="mb-new">14:00</b></div>
+                  <span class="mb-fapp">clock</span><span class="mb-fact">click</span><span class="mb-ftime">09:31</span>
+                </li>
+              </ol>
+              <span class="mb-window" data-step="win" aria-hidden="true"><span class="mb-window-tag" data-mb-wintag>batch 1</span></span>
+              <div class="mb-film-foot" data-step="buckets">
+                <span class="mb-chip">short history · ≤ 400 steps</span>
+                <span class="mb-chip">long history · ≥ 700 steps</span>
+                <span class="mb-film-note">8 frames shown; real logs are hundreds of steps long</span>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-panel mb-p-phone" data-step="phone" data-show="0 4">
+              <div class="mb-phone mb-phone--fig" data-mb-phone>
+                <div class="mb-phone-screen">
+                  <div class="mb-status"><span>10:05</span><span class="mb-status-dots"><i></i><i></i><i></i></span></div>
+
+                  <!-- screen: home -->
+                  <div class="mb-scr mb-scr-home is-shown" data-screen="home">
+                    <div class="mb-homegrid">
+                      <span><i></i>Phone</span><span class="mb-ic-sms"><i></i>SMS</span><span class="mb-ic-map"><i></i>OsmAnd</span><span><i></i>Clock</span>
+                      <span><i></i>Contacts</span><span><i></i>Files</span><span class="mb-ic-cal" data-mb-calicon><i></i>Calendar</span><span><i></i>Expense</span>
+                    </div>
+                    <div class="mb-dock"></div>
+                  </div>
+
+                  <!-- screen: calendar month -->
+                  <div class="mb-scr mb-scr-cal" data-screen="cal">
+                    <div class="mb-appbar"><span>Simple Calendar</span><span class="mb-appbar-ic"></span></div>
+                    <div class="mb-month">
+                      <b>May</b>
+                      <div class="mb-days" data-mb-days></div>
+                    </div>
+                    <div class="mb-evchip" data-mb-evchip>Picnic · Barstow</div>
+                    <span class="mb-fab" data-mb-fab>+</span>
+                  </div>
+
+                  <!-- screen: new event form -->
+                  <div class="mb-scr mb-scr-form" data-screen="form">
+                    <div class="mb-appbar"><span>New event</span><span class="mb-save" data-mb-save>Save</span></div>
+                    <div class="mb-field"><label>Title</label><span data-mb-field="title"></span></div>
+                    <div class="mb-field"><label>Location</label><span data-mb-field="loc"></span></div>
+                    <div class="mb-field"><label>Start</label><span data-mb-field="start"></span></div>
+                    <div class="mb-field"><label>End</label><span data-mb-field="end"></span></div>
+                  </div>
+
+                  <!-- instruction card -->
+                  <div class="mb-instr" data-step="instr">
+                    <span class="mb-instr-from">User instruction</span>
+                    <p>
+                      I plan to have a picnic at
+                      <span class="mb-amb" data-step="amb">the location I just marked on the map</span><span class="mb-resolved" data-step="resolved">Barstow</span>
+                      from 2 p.m. to 6 p.m. the day after tomorrow. Please help me add this schedule to the simple calendar app.
+                    </p>
+                  </div>
+                  <span class="mb-tap" data-mb-tap aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="mb-slot">
+                <div class="mb-think" data-step="think">
+                  <span class="mb-q">?</span>
+                  <span>Nothing on the current screen says which location was marked.</span>
+                </div>
+                <div class="mb-actpill" data-step="act">
+                  <span class="mb-mono" data-mb-stepno>#1</span>
+                  <code data-mb-act>open_app("Simple Calendar")</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory bank -->
+            <div class="mb-panel mb-p-mem" data-step="mem" data-show="2">
+              <div class="mb-panel-head">
+                <span class="mb-dot mb-dot--teal"></span>
+                <b>AppMem · memory</b>
+                <span class="mb-mono" data-mb-membatch>per-app events</span>
+              </div>
+              <div class="mb-mems">
+                <article class="mb-mem" data-step="m0">
+                  <header><span class="mb-app">phone</span><span class="mb-state is-fin">finished</span></header>
+                  <p>Answered an incoming call from an unsaved number in the morning.</p>
+                  <small>Details: 13811223344</small>
+                </article>
+                <article class="mb-mem mb-mem--key" data-step="m1" data-mb-osm>
+                  <header><span class="mb-app">osmand</span><span class="mb-state" data-mb-osmstate>ongoing</span><span class="mb-merged" data-step="merged">merged</span></header>
+                  <p data-mb-osmtext>Searched the map for Barstow and opened the result.</p>
+                  <small>Details: Barstow</small>
+                </article>
+                <article class="mb-mem" data-step="m2">
+                  <header><span class="mb-app">clock</span><span class="mb-state is-fin">finished</span></header>
+                  <p>Created a new afternoon alarm.</p>
+                  <small>Details: 14:00</small>
+                </article>
+              </div>
+            </div>
+
+            <!-- Retrieval -->
+            <div class="mb-panel mb-p-ret" data-step="ret" data-show="3">
+              <div class="mb-panel-head">
+                <span class="mb-dot mb-dot--teal"></span>
+                <b>App-guided retrieval</b>
+                <span class="mb-mono">round 1 of ≤ 3</span>
+              </div>
+              <ol class="mb-rsteps">
+                <li data-step="r0">
+                  <span class="mb-rname">Application inference</span>
+                  <span class="mb-rbody mb-appchips">
+                    <span>phone</span><span class="mb-keyapp" data-mb-keyapp>osmand</span><span>clock</span>
+                  </span>
+                </li>
+                <li data-step="r1">
+                  <span class="mb-rname">Memory retrieval</span>
+                  <span class="mb-rbody">1 entry where <code>app = osmand</code></span>
+                </li>
+                <li data-step="r2">
+                  <span class="mb-rname">Information filtering</span>
+                  <span class="mb-rbody mb-quote" data-mb-retout>“The user searched for Barstow in OsmAnd and saved it as a map marker.”</span>
+                </li>
+                <li data-step="r3">
+                  <span class="mb-rname">Sufficiency verification</span>
+                  <span class="mb-rbody"><b class="mb-ok">sufficient: yes</b> → stop; otherwise ask again with the missing information</span>
+                </li>
+              </ol>
+            </div>
+
+            <!-- Evaluation -->
+            <div class="mb-panel mb-p-eval" data-step="eval" data-show="5">
+              <div class="mb-panel-head">
+                <span class="mb-dot mb-dot--violet"></span>
+                <b>Evaluation</b>
+                <span class="mb-mono">eval_checkpoint.py → eval_metrics.py</span>
+              </div>
+              <div class="mb-evalgrid">
+                <div class="mb-checks">
+                  <p class="mb-evlabel">Task validator · calendar events before vs. after</p>
+                  <ul>
+                    <li data-step="c0"><span class="mb-tick">✓</span> title “Picnic”</li>
+                    <li data-step="c1"><span class="mb-tick">✓</span> location “Barstow”</li>
+                    <li data-step="c2"><span class="mb-tick">✓</span> 2:00 PM – 6:00 PM, day after tomorrow</li>
+                  </ul>
+                  <p class="mb-sr" data-step="sr"><code>is_successful = 1</code> → counts toward <b>SR</b></p>
+                </div>
+                <div class="mb-steps">
+                  <p class="mb-evlabel">Steps against the human reference</p>
+                  <div class="mb-bar" data-step="b0"><span>human</span><i style="--w: 16"></i><b>16</b></div>
+                  <div class="mb-bar mb-bar--agent" data-step="b1"><span>agent</span><i style="--w: 18"></i><b>18</b></div>
+                  <p class="mb-spl" data-step="spl"><code>min(16 / 18, 1) = 0.89</code> → this task's <b>SPL</b> term; <b>IE</b> also weighs the agent's steps against the human's</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================== AppMem =============================== -->
+      <section class="mb-section" id="appmem">
+        <div class="mb-wrap">
+          <p class="mb-kicker">Baseline method</p>
+          <h2>AppMem: memory written per app, retrieved per app</h2>
+          <p class="mb-intro">
+            AppMem is the reference pipeline shipped with the benchmark. It turns raw operation logs into a compact
+            memory once, then, for every task, pulls out only what the task needs. Both stages call the model set
+            in <code>.env</code>, and either can be swapped for your own method.
+          </p>
+
+          <div class="mb-two">
+            <article class="mb-card">
+              <h3><span class="mb-num">1</span> Memory generation</h3>
+              <p>
+                The log is read in batches of screenshots, each paired with the actions performed before it. For
+                every batch the model writes one <b>memory event per app</b>.
+              </p>
+              <ul class="mb-ops">
+                <li><b>Current event summarization</b> — describe what the user did, keeping concrete items, comparisons and changes of mind.</li>
+                <li><b>Latest memory fetching</b> — look up the newest entry for the same app.</li>
+                <li><b>Ongoing intent continuation</b> — if that entry is still <i>ongoing</i>, merge the new event into it; if it is <i>finished</i>, open a new entry.</li>
+              </ul>
+              <pre class="mb-schema"><code><span>App:</span>        osmand
+<span>Event:</span>      searched the map for Barstow, saved a marker
+<span>Details:</span>    Barstow            <em># hard data: numbers, names, sizes</em>
+<span>State:</span>      finished | ongoing
+<span>Start Time:</span> …   <span>End Time:</span> …</code></pre>
+              <p class="mb-small">Field layout from <code>memory_generation/memory/base.py</code>; the values are illustrative.</p>
+            </article>
+
+            <article class="mb-card">
+              <h3><span class="mb-num">2</span> App-guided retrieval</h3>
+              <p>
+                Instead of searching the whole history, retrieval first asks <b>which apps</b> could hold the missing
+                information, then reads only their entries. It repeats for up to three rounds.
+              </p>
+              <ol class="mb-loop">
+                <li><b>Application inference</b><span>pick candidate apps from their one-line descriptions</span></li>
+                <li><b>Memory retrieval</b><span>keep the memory entries of those apps</span></li>
+                <li><b>Information filtering</b><span>extract a concise note that helps the goal</span></li>
+                <li><b>Sufficiency verification</b><span>is anything the agent cannot find through the UI still missing? If so, go again with the remaining apps</span></li>
+              </ol>
+              <p>
+                The note is saved as <code>user_history</code> next to the goal and handed to the agent at every step
+                as <i>“generated information about the user's previous operations”</i>.
+              </p>
+            </article>
+          </div>
+
+          <figure class="mb-figure">
+            <img alt="AppMem overview: a sliding window over the frame sequence produces memory through current event summarization, latest memory fetching and ongoing intent continuation; app-guided retrieval runs application inference, memory retrieval, information filtering and sufficiency verification before the GUI agent executes on the emulator." height="424" loading="lazy" src="assets/method.jpg" width="880" />
+            <figcaption>AppMem overview (figure from the repository).</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============================= Benchmark ============================= -->
+      <section class="mb-section" id="benchmark">
+        <div class="mb-wrap">
+          <p class="mb-kicker">Benchmark design</p>
+          <h2>Real user logs, restored phones, checkable outcomes</h2>
+          <div class="mb-three">
+            <div class="mb-mini">
+              <h3>User history</h3>
+              <p>Operation logs recorded from users: screenshots plus the actions between them. Tasks are split by how long that history is.</p>
+              <div class="mb-split" role="img" aria-label="71 short tasks and 47 long tasks">
+                <span style="--n: 71">short · 71</span><span style="--n: 47">long · 47</span>
+              </div>
+              <p class="mb-small">short ≤ 400 history steps · long ≥ 700 history steps</p>
+            </div>
+            <div class="mb-mini">
+              <h3>Restored device</h3>
+              <p>
+                Each user's app data is restored into a Pixel 6 emulator (API 33) and saved as a snapshot such as
+                <code>snapshot_0_short</code>, so every task starts from that user's real phone state.
+              </p>
+            </div>
+            <div class="mb-mini">
+              <h3>Checked results</h3>
+              <p>
+                Each task carries its own validator that inspects the resulting app state (databases, files or UI);
+                a judge model is configured for open-ended checks. A human run of every task gives the reference step counts.
+              </p>
+            </div>
+          </div>
+
+          <div class="mb-apps">
+            <div class="mb-apps-head">
+              <h3>Where the tasks are carried out</h3>
+              <p class="mb-small">Tasks per target app, counted from <code>app_name</code> in <code>task_evals/fixed_tasks/</code> (118 in total).</p>
+            </div>
+            <ul class="mb-appbars" data-mb-appbars></ul>
+          </div>
+
+          <figure class="mb-figure">
+            <img alt="MemU-Bench overview: (a) benchmark architecture with apps, vague tasks, user trajectories and user databases; (b) evaluation pipeline where memory generated from trajectories is retrieved for the GUI agent, which controls the emulator, followed by rule-based and LLM-as-judge evaluation." height="483" loading="lazy" src="assets/benchmark.jpg" width="880" />
+            <figcaption>Benchmark architecture and evaluation pipeline (figure from the repository).</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============================== Metrics ============================== -->
+      <section class="mb-section" id="metrics">
+        <div class="mb-wrap">
+          <p class="mb-kicker">Metrics</p>
+          <h2>Did it finish, and how many taps did it take?</h2>
+          <p class="mb-intro">
+            Every run is compared task-by-task with <code>eval_results/human.json</code>, a human run of all 118 tasks
+            (2 to 19 steps each). <code>eval_metrics.py</code> also reports SR and SPL separately for short and long
+            history.
+          </p>
+          <div class="mb-metrics">
+            <article>
+              <span class="mb-mtag">SR</span>
+              <h3>Success Rate</h3>
+              <p>Share of tasks whose validator reports success.</p>
+              <code class="mb-formula">SR = (1/N) · Σ S<sub>i</sub></code>
+            </article>
+            <article>
+              <span class="mb-mtag">SPL</span>
+              <h3>Success weighted by Path Length</h3>
+              <p>Success, discounted when the agent needs more steps than the human did. Failed tasks score 0.</p>
+              <code class="mb-formula">SPL = (1/N) · Σ S<sub>i</sub> · min(h<sub>i</sub> / a<sub>i</sub>, 1)</code>
+            </article>
+            <article>
+              <span class="mb-mtag">IE</span>
+              <h3>Interaction Efficiency</h3>
+              <p>
+                How efficiently the agent interacts with the environment. The metric script reports step efficiency
+                over successful episodes and the step overrun (a<sub>i</sub> / h<sub>i</sub>) over failed ones.
+              </p>
+            </article>
+          </div>
+          <p class="mb-small mb-center">S<sub>i</sub>: success on task i · h<sub>i</sub>: human reference steps · a<sub>i</sub>: agent steps.</p>
+        </div>
+      </section>
+
+      <!-- ============================ Quick start ============================ -->
+      <section class="mb-section" id="start">
+        <div class="mb-wrap">
+          <p class="mb-kicker">Quick start</p>
+          <h2>Run the AppMem pipeline</h2>
+          <p class="mb-intro">
+            Download the data from <a href="https://huggingface.co/datasets/vagrt/MemU-Bench-data">Hugging Face</a>
+            (<code>apks/</code>, <code>user_database/</code>, <code>user_history/</code>), create the
+            <b>MemUBenchAvd</b> emulator (Pixel 6, API 33) and set <code>MODEL</code>, <code>API_KEY</code>,
+            <code>BASE_URL</code> in <code>.env</code>. Full instructions are in the
+            <a href="https://github.com/ZJU-REAL/MemU-Bench#installation">README</a>.
+          </p>
+
+          <ol class="mb-run">
+            <li>
+              <h3>Initialize the emulator <span>once</span></h3>
+              <pre><code>python batch_restore_and_snapshot.py --install-apps --apk-dir ./apks</code></pre>
+            </li>
+            <li>
+              <h3>Generate memory from the logs</h3>
+              <pre><code>python memory_generation/memory/generate_memory.py \
+    --session_paths ./user_history \
+    --output_path ./user_information/memory/${MODEL_NAME}.json \
+    --env_file .env</code></pre>
+            </li>
+            <li>
+              <h3>Retrieve information per task</h3>
+              <pre><code>python retrieve_information/retrieve_information.py \
+    --method memory \
+    --path ./user_information/memory/${MODEL_NAME}.json \
+    --output ./relevant_information/memory/${MODEL_NAME}.json \
+    --log_path ./retrieve_log/memory/${MODEL_NAME}.txt \
+    --env_file .env</code></pre>
+            </li>
+            <li>
+              <h3>Run the agent on the emulator</h3>
+              <pre><code>python run_memubench.py \
+    --suite_family memory_suite \
+    --checkpoint_dir ./checkpoint_results/${MODEL_NAME}/memory/run1 \
+    --method with_history \
+    --user_information_path ./relevant_information/memory/${MODEL_NAME}.json \
+    --eval_setting unclear_goal \
+    --env_file .env</code></pre>
+            </li>
+            <li>
+              <h3>Score against the human reference</h3>
+              <pre><code>python eval/eval_checkpoint.py \
+    --checkpoint_dir ./checkpoint_results/${MODEL_NAME}/memory/run1 \
+    --output ./eval_results/${MODEL_NAME}_memory.json
+python eval/eval_metrics.py \
+    --ref ./eval_results/human.json \
+    --eval ./eval_results/${MODEL_NAME}_memory.json \
+    --output ./metric_results/memory.json</code></pre>
+            </li>
+          </ol>
+
+          <div class="mb-plug">
+            <div>
+              <h3>Bring your own memory method</h3>
+              <p>
+                Replace the memory generator with any script and its output can take any shape. Add a retrieval
+                module with <code>get_filtered_history(goal, path, …)</code>, register it in
+                <code>retrieve_information/__init__.py</code> and pass <code>--method your_own_method</code>.
+                Execution and scoring stay unchanged as long as the retrieval output looks like this:
+              </p>
+            </div>
+            <pre><code>{
+  "results": [
+    {
+      "goal": "the ambiguous task instruction",
+      "subdir": "short",
+      "user_history": "the retrieved information for this task"
+    }
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== Citation ============================== -->
+      <section class="mb-section mb-section--last" id="cite">
+        <div class="mb-wrap">
+          <div class="mb-cite">
+            <span class="mb-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div>
+              <h2>Citation</h2>
+              <p>Paper coming soon. Until then, please link to the <a href="https://github.com/ZJU-REAL/MemU-Bench">GitHub repository</a>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mb-footer">
+      <div class="mb-wrap">
+        <span>MemU-Bench · Apache-2.0</span>
+        <span>Built on <a href="https://github.com/google-research/android_world">AndroidWorld</a></span>
+      </div>
+    </footer>
+  </body>
+</html>
