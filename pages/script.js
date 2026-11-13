@@ -327,31 +327,30 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const frames = qa(".mb-frame");
   const win = q(".mb-window");
   const winTag = q("[data-mb-wintag]");
-  const phoneScreen = q("[data-mb-phone] .mb-phone-screen");
+  const phoneScreen = q("[data-mb-phone] .mb-dev-screen");
   const tap = q("[data-mb-tap]");
   const stepNo = q("[data-mb-stepno]");
   const actCode = q("[data-mb-act]");
-  const fields = Object.fromEntries(qa("[data-mb-field]").map((el) => [el.dataset.mbField, el]));
   const osm = q("[data-mb-osm]");
   const osmState = q("[data-mb-osmstate]");
   const osmText = q("[data-mb-osmtext]");
   const keyApp = q("[data-mb-keyapp]");
-  const evChip = q("[data-mb-evchip]");
   const amb = q(".mb-amb");
-
-  /* calendar days: May 2026 starts on a Friday */
-  const days = q("[data-mb-days]");
-  days.innerHTML =
-    ["S", "M", "T", "W", "T", "F", "S"].map((d) => `<span class="is-head">${d}</span>`).join("") +
-    "<span></span>".repeat(5) +
-    Array.from({ length: 31 }, (_, i) => `<span data-day="${i + 1}">${i + 1}</span>`).join("");
-  const eventDay = days.querySelector('[data-day="1"]');
 
   /* ---------- helpers ---------- */
   const on = (key) => qa(`[data-step="${key}"]`).forEach((el) => el.classList.add("is-on"));
   const off = (key) => qa(`[data-step="${key}"]`).forEach((el) => el.classList.remove("is-on"));
   const screen = (name) =>
     qa("[data-screen]").forEach((el) => el.classList.toggle("is-shown", el.dataset.screen === name));
+  const point = (fx, fy, fast) => {
+    // tap at a fraction of the screen (used on the screenshot, whose fields are not DOM elements)
+    if (fast) return;
+    tap.style.left = `${fx * 100}%`;
+    tap.style.top = `${fy * 100}%`;
+    tap.classList.remove("is-tapping");
+    void tap.offsetWidth;
+    tap.classList.add("is-tapping");
+  };
   const act = (n, text) => {
     stepNo.textContent = `#${n}`;
     actCode.textContent = text;
@@ -367,21 +366,6 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     tap.classList.remove("is-tapping");
     void tap.offsetWidth;
     tap.classList.add("is-tapping");
-  }
-
-  function typeInto(el, text, fast, t) {
-    el.classList.add("is-new");
-    if (fast) {
-      el.textContent = text;
-      return;
-    }
-    let i = 0;
-    const tick = () => {
-      if (t !== token) return;
-      el.textContent = text.slice(0, ++i);
-      if (i < text.length) setTimeout(tick, 45);
-    };
-    tick();
   }
 
   let batch = 0;
@@ -476,20 +460,14 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     qa("[data-step]").forEach((el) => el.classList.remove("is-on"));
     clearWire();
     screen("home");
-    Object.values(fields).forEach((el) => {
-      el.textContent = "";
-      el.classList.remove("is-new");
-    });
     amb.classList.remove("is-done");
     osmState.textContent = "ongoing";
     osmState.classList.remove("is-fin");
     osmText.textContent = "Searched the map for Barstow and opened the result.";
     osm.classList.remove("is-picked");
     keyApp.classList.remove("is-key");
-    evChip.classList.remove("is-shown");
-    eventDay.classList.remove("is-event");
     winTag.textContent = "window 1";
-    act(1, 'open_app("Simple Calendar")');
+    act(1, 'open_app("Calendar")');
     batch = 0;
   }
 
@@ -585,66 +563,26 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
           900,
           (fast) => {
             on("act");
-            act(1, 'open_app("Simple Calendar")');
-            tapAt(q("[data-mb-calicon]"), fast);
-          },
-        ],
-        [700, () => screen("cal")],
-        [
-          900,
-          (fast) => {
-            act(2, 'click("+")');
-            tapAt(q("[data-mb-fab]"), fast);
-          },
-        ],
-        [700, () => screen("form")],
-        [
-          1100,
-          (fast, t) => {
-            act(4, 'type("Picnic")');
-            tapAt(fields.title, fast);
-            typeInto(fields.title, "Picnic", fast, t);
-          },
-        ],
-        [
-          1100,
-          (fast, t) => {
-            act(6, 'type("Barstow")');
-            tapAt(fields.loc, fast);
-            typeInto(fields.loc, "Barstow", fast, t);
+            act(1, 'open_app("Calendar")');
+            tapAt(q("[data-mb-calicon] img"), fast);
           },
         ],
         [
           1000,
-          (fast) => {
-            act(10, "set start · 2:00 PM");
-            tapAt(fields.start, fast);
-            fields.start.textContent = "day after tomorrow · 2:00 PM";
-            fields.start.classList.add("is-new");
-          },
-        ],
-        [
-          1000,
-          (fast) => {
-            act(15, "set end · 6:00 PM");
-            tapAt(fields.end, fast);
-            fields.end.textContent = "day after tomorrow · 6:00 PM";
-            fields.end.classList.add("is-new");
-          },
-        ],
-        [
-          900,
-          (fast) => {
-            act(17, 'click("Save")');
-            tapAt(q("[data-mb-save]"), fast);
-          },
-        ],
-        [
-          1400,
           () => {
             screen("cal");
-            eventDay.classList.add("is-event");
-            evChip.classList.add("is-shown");
+            act(3, 'click("New event")');
+          },
+        ],
+        [1000, (fast) => (act(4, 'type("Picnic")'), point(0.62, 0.2, fast))],
+        [1000, (fast) => (act(6, 'type("Barstow")'), point(0.62, 0.29, fast))],
+        [1000, (fast) => (act(10, "set date · day after tomorrow"), point(0.62, 0.38, fast))],
+        [1000, (fast) => (act(15, "set time · 2:00 – 6:00 PM"), point(0.62, 0.465, fast))],
+        [900, (fast) => (act(17, 'click("Save")'), point(0.5, 0.87, fast))],
+        [
+          1300,
+          () => {
+            on("saved");
             act(18, 'terminate("success")');
           },
         ],
