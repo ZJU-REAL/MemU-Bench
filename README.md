@@ -24,6 +24,7 @@ Wenhao Xu<sup>2</sup>, Yunfeng Shu<sup>1</sup>, Wenqi Zhang<sup>1</sup>, Weiming
 <p align="center">
   <a href="https://arxiv.org/abs/2611.00191"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2611.00191-b31b1b?style=flat-square"></a>
   <a href="https://zjureal.com/MemU-Bench/"><img alt="Project" src="https://img.shields.io/badge/Project-Page-129C93?style=flat-square"></a>
+  <a href="https://zjureal.com/KnowU-Bench/"><img alt="Related: KnowU-Bench" src="https://img.shields.io/badge/Related-KnowU--Bench-E2725B?style=flat-square"></a>
   <a href="https://huggingface.co/datasets/vagrt/MemU-Bench-data"><img alt="Hugging Face Dataset" src="https://img.shields.io/badge/🤗%20Dataset-MemU--Bench--data-FFD21E?style=flat-square"></a>
 </p>
 
@@ -54,6 +55,8 @@ MemU-Bench is a benchmark for evaluating how well autonomous GUI agents can leve
 ### AppMem Overview
 
 ![Method Overview](imgs/method.png)
+
+> **Related benchmark.** [KnowU-Bench](https://github.com/ZJU-REAL/KnowU-Bench) ([project page](https://zjureal.com/KnowU-Bench/), [paper](https://arxiv.org/abs/2604.08455)) evaluates whether mobile agents *know* the user — inferring preferences, asking for clarification and acting proactively — while MemU-Bench evaluates whether they can *recall* the user's long interaction history.
 
 <a id="news"></a>
 
@@ -334,6 +337,20 @@ If you find MemU-Bench useful, please cite:
   author  = {Liu, Yizhou and Lu, Zhengxi and Tang, Fei and Qiu, Yiwen and Du, Yong and Chen, Tongbo and Chen, Bofan and Jiang, Tao and Xu, Wenhao and Shu, Yunfeng and Zhang, Wenqi and Lu, Weiming and Xiao, Jun and Zhuang, Yueting and Shen, Yongliang},
   journal = {arXiv preprint arXiv:2611.00191},
   year    = {2026}
+}
+```
+
+Related benchmark — [KnowU-Bench](https://github.com/ZJU-REAL/KnowU-Bench):
+
+```bibtex
+@misc{chen2026knowubench,
+      title={KnowU-Bench: Towards Interactive, Proactive, and Personalized Mobile Agent Evaluation},
+      author={Tongbo Chen and Zhengxi Lu and Zhan Xu and Guocheng Shao and Shaohan Zhao and Fei Tang and Yong Du and Kaitao Song and Yizhou Liu and Yuchen Yan and Wenqi Zhang and Xu Tan and Weiming Lu and Jun Xiao and Yueting Zhuang and Yongliang Shen},
+      year={2026},
+      eprint={2604.08455},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2604.08455},
 }
 ```
 

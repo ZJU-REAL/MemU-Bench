@@ -16,11 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link href="style.css?v=20261114d" rel="stylesheet" />
+    <link href="style.css?v=20261114e" rel="stylesheet" />
     <script>
       document.documentElement.classList.add("js");
     </script>
-    <script defer src="script.js?v=20261114d"></script>
+    <script defer src="script.js?v=20261114e"></script>
   </head>
   <body>
     <a class="mb-skip" href="#main">Skip to content</a>
@@ -75,6 +75,7 @@
                 Code
               </a>
               <a class="mb-btn" href="https://huggingface.co/datasets/vagrt/MemU-Bench-data">Dataset</a>
+              <a class="mb-btn" href="https://zjureal.com/KnowU-Bench/">KnowU-Bench ↗</a>
               <a class="mb-btn mb-btn--small" href="#cite">BibTeX</a>
             </div>
           </div>
@@ -696,6 +697,27 @@ python eval/eval_metrics.py \
         </div>
       </section>
 
+      <!-- =========================== Related benchmark =========================== -->
+      <section class="mb-section" id="related">
+        <div class="mb-wrap">
+          <article class="mb-related">
+            <p class="mb-related-tag">Related benchmark</p>
+            <h2>KnowU-Bench: Towards Interactive, Proactive, and Personalized Mobile Agent Evaluation</h2>
+            <p>
+              MemU-Bench asks whether a mobile agent can <em>recall</em> a user's long interaction history to resolve
+              vague instructions. Its sister benchmark KnowU-Bench asks whether the agent <em>knows</em> the user:
+              inferring preferences from behaviour logs, asking for clarification, and deciding when to act, seek
+              consent, or stay silent.
+            </p>
+            <p class="mb-related-links">
+              <a href="https://zjureal.com/KnowU-Bench/">Project page ↗</a>
+              <a href="https://arxiv.org/abs/2604.08455">Paper ↗</a>
+              <a href="https://github.com/ZJU-REAL/KnowU-Bench">Code ↗</a>
+            </p>
+          </article>
+        </div>
+      </section>
+
       <!-- ============================== Citation ============================== -->
       <section class="mb-section mb-section--last" id="cite">
         <div class="mb-wrap">
@@ -709,6 +731,19 @@ python eval/eval_metrics.py \
   journal = {arXiv preprint arXiv:2611.00191},
   year    = {2026}
 }</code></pre>
+          <div class="mb-cite-head mb-cite-sub">
+            <h3>Related benchmark: KnowU-Bench</h3>
+            <button class="mb-copy" data-copy="mb-bib-knowu" type="button">Copy BibTeX</button>
+          </div>
+          <pre class="mb-bib" id="mb-bib-knowu"><code>@misc{chen2026knowubench,
+      title={KnowU-Bench: Towards Interactive, Proactive, and Personalized Mobile Agent Evaluation},
+      author={Tongbo Chen and Zhengxi Lu and Zhan Xu and Guocheng Shao and Shaohan Zhao and Fei Tang and Yong Du and Kaitao Song and Yizhou Liu and Yuchen Yan and Wenqi Zhang and Xu Tan and Weiming Lu and Jun Xiao and Yueting Zhuang and Yongliang Shen},
+      year={2026},
+      eprint={2604.08455},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2604.08455},
+}</code></pre>
         </div>
       </section>
     </main>
@@ -716,7 +751,7 @@ python eval/eval_metrics.py \
     <footer class="mb-footer">
       <div class="mb-wrap">
         <span>Zhejiang University &amp; Ant Group · Code released under Apache-2.0</span>
-        <span><a href="https://github.com/ZJU-REAL/MemU-Bench">GitHub</a> · <a href="https://arxiv.org/abs/2611.00191">arXiv</a> · built on <a href="https://github.com/google-research/android_world">AndroidWorld</a></span>
+        <span><a href="https://github.com/ZJU-REAL/MemU-Bench">GitHub</a> · <a href="https://arxiv.org/abs/2611.00191">arXiv</a> · <a href="https://zjureal.com/KnowU-Bench/">KnowU-Bench</a> · built on <a href="https://github.com/google-research/android_world">AndroidWorld</a></span>
       </div>
     </footer>
   </body>

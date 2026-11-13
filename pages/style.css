@@ -2448,3 +2448,36 @@ h3 {
   width: auto;
   height: 26px;
 }
+
+/* --------------------------- Related benchmark ---------------------------- */
+.mb-related {
+  padding: 26px 28px;
+  border: 1px solid var(--line, #dfe6ee);
+  border-radius: 18px;
+  background: #fff;
+}
+.mb-related-tag {
+  margin: 0 0 6px;
+  color: #129c93;
+  font: 500 12px/1.4 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.mb-related h2 {
+  margin: 0 0 10px;
+  font-size: clamp(19px, 2.2vw, 24px);
+}
+.mb-related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 12px 0 0;
+  font-weight: 600;
+}
+.mb-cite-sub {
+  margin-top: 28px;
+}
+.mb-cite-sub h3 {
+  margin: 0;
+  font-size: 18px;
+}
